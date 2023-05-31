@@ -3,17 +3,17 @@ const mongoose = require('mongoose');
 const backupSchema = new mongoose.Schema({
   backupId: {
     type: String,
-    required: true
+    required: true,
   },
   siteId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Website',
-    required: true
+    required: true,
   },
   description: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const Backup = mongoose.model('Backup', backupSchema);
