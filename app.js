@@ -1,6 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-
+const logger = require('./logger');
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 
@@ -18,10 +18,10 @@ const connectionParams = {
 
 mongoose.connect(process.env.DB_CONNECTION, connectionParams)
     .then(() => {
-        console.log('connect to mongoDB');
+        logger.info('connect to mongoDB');
     })
     .catch((error) => {
-        console.log(error.message);
+        logger.error(error.message);
     })
 
 
@@ -30,5 +30,5 @@ app.use(bodyParser.json())
 
 //יצירת מאזין בפורט שבחרנו
 app.listen(port, () => {
-    console.log(`my app is listening on http://localhost:${port}`);
+    logger.info(`my app is listening on http://localhost:${port}`);
 })
