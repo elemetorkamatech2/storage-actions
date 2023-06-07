@@ -1,12 +1,11 @@
-
 {
   "name": "storage-actions",
   "version": "1.0.0",
   "description": "service for storage actions",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",

@@ -11,19 +11,14 @@ const logger = pino({
         host: bindings.hostname,
         node_version: process.version,
       };
-
     },
     level: (label) => {
       return {
         level: label.toUpperCase()
       };
     },
-
-  },
-  
+  },  
 });
-
-
 
 const fileTransports = pino.transport({
   target: 'pino/file',
@@ -38,18 +33,7 @@ module.exports = pino(
         return { level: label.toUpperCase() };
         
       },
-
-    },
-   
-    prettyPrint: {
-      colorize: true, 
-      levelFirst: true,
-      translateTime: 'yyyy-dd-mm, h:MM:ss TT',
-    },
-     
-     
-     
-   
+    },   
     timestamp: pino.stdTimeFunctions.isoTime,
   },
   fileTransports
