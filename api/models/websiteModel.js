@@ -31,6 +31,10 @@ const websiteSchema = new mongoose.Schema({
   backups: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Backup'
+  }],
+  userId:[{
+    type: String,
+    required: true
   }]
 });
 
