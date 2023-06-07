@@ -27,6 +27,10 @@ mongoose.connect(process.env.DB_CONNECTION, connectionParams)
 
 app.use(bodyParser.json())
 
+app.get('/', (req, res) => {
+    res.status(200).send('HELLO ˜')
+})
+
 
 //יצירת מאזין בפורט שבחרנו
 app.listen(port, () => {
