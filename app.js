@@ -34,7 +34,6 @@ app.use('doc',swaggerUi.serve, swaggerUi.setup(swaggerFile));
 require('./api/routes/backupRouter')(app);
 require('./api/routes/websiteRouter')(app);
 
-//יצירת מאזין בפורט שבחרנו
 app.listen(port, () => {
     logger.info(`my app is listening on http://localhost:${port}`);
 })
