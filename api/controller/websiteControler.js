@@ -1,12 +1,6 @@
-//var Message = require('./api/models/websiteModel.js');
 const validator = require('../validate.js');
-
 var Message = require('../models/websiteModel.js');
-//const logger = require('.../logger.js');
-
 var myexpress = require("express")
-//פונ' זו מאפשרת להפריד את השרת לקבצים שונים - ביזור
-//router: משתנה זה יהיה המשתנה אליו מקושרות הפונ' של השרת
 var router = myexpress.Router()
 module.exports = {
 

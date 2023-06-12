@@ -5,8 +5,8 @@ const validator = async (body, rules, customMessages, callback) => {
     validation.fails(() => callback(validation.errors, false));
 };
 
-const passwordRegex =  /^[a-zA-Z\s]*$/;
-Validator.register('EnglishLetters', value => passwordRegex.test(value),
+const titleEnglish =  /^[a-zA-Z\s]*$/;
+Validator.register('EnglishLetters', value => titleEnglish.test(value),
     'the title mast to be with ב or spaces Dipulatives');
 
     const description =  /^[a-zA-Z\s]*$/;

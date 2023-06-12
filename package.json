@@ -1,4 +1,3 @@
-
 {
   "name": "storage-actions",
   "version": "1.0.0",
@@ -25,7 +24,8 @@
     "express-session": "^1.17.3",
     "keycloak-connect": "^21.1.1",
     "mongodb": "^5.5.0",
-    "mongoose": "^7.2.0",
+   
+    "pino": "^8.14.1",
     "validatorjs": "^3.22.1",
     "whois": "^2.14.0"
   },
