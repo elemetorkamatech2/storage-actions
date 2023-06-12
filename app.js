@@ -1,3 +1,4 @@
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -5,6 +6,13 @@ const dotenv = require('dotenv');
 
 const app = express();
 const port = 3000;
+
+
+
+const logger = require('./logger');
+
+
+
 
 // יבוא והיכר של הקובץ ENV
 dotenv.config();
@@ -15,20 +23,27 @@ const connectionParams = {
 };
 
 mongoose.connect(process.env.DB_CONNECTION, connectionParams)
-  .then(() => {
-    console.log('connect to mongoDB');
-  })
-  .catch((error) => {
-    console.log(error.message);
-  });
+
+    .then(() => {
+        logger.info('connect to mongoDB');
+    })
+    .catch((error) => {
+        logger.error(error.message);
+    })
+
 
 const messageRouter = require('./api/routes/websiteRoute');
 
 app.use(bodyParser.json());
 app.use('/messages', messageRouter);
 
+
+app.get('/', (req, res) => {
+    res.status(200).send('HELLO ˜')
+})
+
+
+//יצירת מאזין בפורט שבחרנו
 app.listen(port, () => {
-  console.log(`my app is listening on http://localhost:${port}`);
-});
-
-
+    logger.info(`my app is listening on http://localhost:${port}`);
+})

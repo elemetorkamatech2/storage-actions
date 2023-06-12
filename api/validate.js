@@ -5,12 +5,9 @@ const validator = async (body, rules, customMessages, callback) => {
     validation.fails(() => callback(validation.errors, false));
 };
 
-
 const passwordRegex =  /^[a-zA-Z\s]*$/;
 Validator.register('EnglishLetters', value => passwordRegex.test(value),
     'the title mast to be with ב or spaces Dipulatives');
-
-
 
     const description =  /^[a-zA-Z\s]*$/;
 
@@ -44,15 +41,6 @@ Validator.register('desEnglishLetters', value => description.test(value),
         const available = await isDomainAvailable(domain);
         return available;
       }, 'The domain is not available.');
-
-
-
-   
-
-// Validator.register('whois', value => whois.lookup(value , function(err, data) {
-//     console.log(data)
-// }),
-    // 'password must contain at least one uppercase letter, one lowercase letter and one number');
     const allowedCpuTypes = [686,586,486,386  ];
 // Tighten password policy
 Validator.register('wedCpuTypes', value => allowedCpuTypes.includes(value),
