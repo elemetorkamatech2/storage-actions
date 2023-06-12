@@ -34,6 +34,9 @@ const websiteSchema = new mongoose.Schema({
   }]
 });
 
-const Website = mongoose.model('Website', websiteSchema);
+const websiteModel = mongoose.model('websiteModel', websiteSchema);
 
-module.exports = Website;
+module.exports = websiteModel;
+
+
+
