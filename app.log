@@ -1,0 +1,2 @@
+{"level":"INFO","time":"2023-06-07T08:51:55.236Z","pid":3000,"hostname":"ASUSelisheva","msg":"my app is listening on http://localhost:3000"}
+{"level":"INFO","time":"2023-06-07T08:51:55.271Z","pid":3000,"hostname":"ASUSelisheva","msg":"connect to mongoDB"}
