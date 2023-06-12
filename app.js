@@ -1,15 +1,16 @@
 
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-
+const logger = require('./logger');
 const app = express();
 const port = 3000;
 
 
 
-const logger = require('./logger');
+
 
 
 
@@ -42,8 +43,13 @@ app.get('/', (req, res) => {
     res.status(200).send('HELLO ˜')
 })
 
+app.get('/', (req, res) => {
+    res.status(200).send('HELLO ˜')
+})
+
 
 //יצירת מאזין בפורט שבחרנו
 app.listen(port, () => {
     logger.info(`my app is listening on http://localhost:${port}`);
+
 })
