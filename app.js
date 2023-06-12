@@ -1,12 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const logger = require('./logger');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const swaggerUi = require('swagger-ui-express');
+
+const swaggerFile = require('./swagger');
+const logger = require('./logger');
 
 const app = express()
 const port = 3000
-// יבוא והיכר של הקובץ ENV  
 dotenv.config()
 
 const connectionParams = {
@@ -27,6 +29,10 @@ app.use(bodyParser.json())
 app.get('/', (req, res) => {
     res.status(200).send('HELLO ˜')
 })
+
+app.use('doc',swaggerUi.serve, swaggerUi.setup(swaggerFile));
+require('./api/routes/backupRouter')(app);
+require('./api/routes/websiteRouter')(app);
 
 //יצירת מאזין בפורט שבחרנו
 app.listen(port, () => {
