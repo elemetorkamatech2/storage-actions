@@ -2,7 +2,6 @@ const myexpress = require("express")
 const validator = require('../validate.js');
 const Message = require('../models/websiteModel.js');
 const logger = require("../../logger.js");
-
 const router = myexpress.Router()
 module.exports = {
     createWebsite:async (req, res) => {
@@ -27,7 +26,7 @@ module.exports = {
             } else {
               const message = new Message(website);
               message.save();
-              res.status(200).send({ message: message });
+              res.status(200).send({ message });
             }
           });
         } catch (error) {
