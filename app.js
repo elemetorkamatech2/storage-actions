@@ -7,8 +7,7 @@ const dotenv = require('dotenv');
 const logger = require('./logger');
 const app = express();
 const port = 3000;
-const DB_CONNECTION = process.env.DB_CONNECTION;
-
+const CONNECTION = process.env.DB_CONNECTION;
 dotenv.config();
 
 const connectionParams = {
@@ -16,7 +15,7 @@ const connectionParams = {
   useUnifiedTopology: true
 };
 
-mongoose.connect(DB_CONNECTION, connectionParams)
+mongoose.connect(CONNECTION, connectionParams)
 
     .then(() => {
         logger.info('connect to mongoDB');
@@ -24,7 +23,6 @@ mongoose.connect(DB_CONNECTION, connectionParams)
     .catch((error) => {
         logger.error(error.message);
     })
-
 
 const messageRouter = require('./api/routes/websiteRoute');
 
@@ -39,8 +37,6 @@ app.get('/', (req, res) => {
 app.get('/', (req, res) => {
     res.status(200).send('HELLO ˜')
 })
-
-
 
 app.listen(port, () => {
     logger.info(`my app is listening on http://localhost:${port}`);
