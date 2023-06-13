@@ -29,8 +29,8 @@ const websiteSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum : ['pending', 'ready to use', 'start','stop','delete','backup'],
-    default: 'NEW'
+    enum : ['pending', 'ready_to_use', 'start','stop','delete','backup'],
+    default: 'no_status'
    },  
   backups: [{
     type: mongoose.Schema.Types.ObjectId,
