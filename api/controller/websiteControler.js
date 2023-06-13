@@ -1,9 +1,10 @@
+const myexpress = require("express")
 const validator = require('../validate.js');
-var Message = require('../models/websiteModel.js');
-var myexpress = require("express")
-var router = myexpress.Router()
-module.exports = {
+const Message = require('../models/websiteModel.js');
+const logger = require("../../logger.js");
 
+const router = myexpress.Router()
+module.exports = {
     createWebsite:async (req, res) => {
         try {
           const validationRule = {
@@ -16,15 +17,15 @@ module.exports = {
             "domain":"isDomainAvailable",
             "typeOfDomain":"tapedomin"
           };
-          await validator(req.body, validationRule, {}, (err, status) => {
+          const website = req.body;
+          await validator(website, validationRule, {}, (err, status) => {
             if (!status) {
-              res.status(412).send({
-                success: false,
-                message: 'Validation failed',
-                data: err
-              });
+              logger.error(err);
+              res.status(412).send({ success: false, message: 'An error occurred on the server' });
+            
+            
             } else {
-              const message = new Message(req.body);
+              const message = new Message(website);
               message.save();
               res.status(200).send({ message: message });
             }

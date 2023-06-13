@@ -7,15 +7,8 @@ const dotenv = require('dotenv');
 const logger = require('./logger');
 const app = express();
 const port = 3000;
+const DB_CONNECTION = process.env.DB_CONNECTION;
 
-
-
-
-
-
-
-
-// יבוא והיכר של הקובץ ENV
 dotenv.config();
 
 const connectionParams = {
@@ -23,7 +16,7 @@ const connectionParams = {
   useUnifiedTopology: true
 };
 
-mongoose.connect(process.env.DB_CONNECTION, connectionParams)
+mongoose.connect(DB_CONNECTION, connectionParams)
 
     .then(() => {
         logger.info('connect to mongoDB');
@@ -48,7 +41,7 @@ app.get('/', (req, res) => {
 })
 
 
-//יצירת מאזין בפורט שבחרנו
+
 app.listen(port, () => {
     logger.info(`my app is listening on http://localhost:${port}`);
 
