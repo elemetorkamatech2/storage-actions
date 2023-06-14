@@ -3,6 +3,7 @@ const createError = require('http-errors');
 const { PUBLIC_KEY } = process.env;
 const logger = require('../../logger');
 
+
 async function myFunction(req, res, next) {
   const bearerHeader = req.headers.authorization;
   const token = bearerHeader && bearerHeader.split(' ')[1];
