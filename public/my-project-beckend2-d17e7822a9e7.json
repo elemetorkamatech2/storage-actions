@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "my-project-beckend2",
+  "private_key_id": "32009e8e8473f21d493b981e55778364ea2a685e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDJJbztXOqkIqJt\nmYcHF2FXZeWrJD2MsEDRuxV9capGw6dU0Z+NCLsLSzAN+z4TxeJT12dKGrO6u6lT\nHgKBijTEe26AIT5jjeeRfWtPZDu3/bIKGfctVk1LXT5ZdGKn5it7FZ7r5E1EXRlc\nE+MIeTkBOrjPy6djZCoHPK0mNXAfNXaYGEb6H6U2DZ0lXVgWFarLilA2uxYwO+mh\nckbGsYxKzuD4324FQI2SxX8nUZ1B3DjG0jQqHTUTfpdoFMvl7kUqykWBE8qb3xcX\necdSVSdko/L5RXK6LbgK/W/V3KsGsSEEs6zDpCKe9aUdzARDZ4pkIN5fYHJBBqhX\nam/7zUqNAgMBAAECggEAJYPbU63TuV8YSjarH2B18DX5+sxcimPJAxTQckAD0QTm\nrYQXLNenAvk38jOcpVVv29E9221VfgtIDk93ii97nfWja1RH7Ytm2BS7Mehw1uUD\nEq07E4KYEelHGqoBSG0+SMuEg1xmKMzwUOMIoejx/8+y7lZ+VqQ0znq7lHe8/KTI\nQzzphlT+5Gh+KQ0Hf56QcLhZyKchfYqE5dyqo70YTyCv7Fd2iu4/XpCQMzh4I6eW\nZWGIVwCpY8c0QUj2xFrOnw0jcka9dIyeZa+Sff0XQB+iFYOw1wEPDjXZMjdIDBf5\ntocGvShaD4uwRKr/udlPFUIZbDs5pcC08Ud/TS5QZQKBgQDuxZalXbki3PMmay4T\nRX4KF84v6Qur3VCgSZP5B5cgOuBDauj43EGkdmxJEI6izcrrwUEgtODGpUYWKNkJ\nivFKbibKo58U9CUn5dqSxCpIZ31E7NKMyPCbJIGsvvEhX4dFIfRykZb8QItBAZiR\n9Wg4u4WLLSsab/EN9RyBmVFLUwKBgQDXqS4RuD7GApM8kzQjJN7AsuFqx9qkGDvD\n++lvep8aJSYIU7rfwenFjTJixGqQzwM/DXwt+6JryEn4uRTtfl8qfhAF3M1/UfAI\nvUHKcNACrFSFr6vLxMFqaKyTBXwL8EINriloj9uyPF2eeVV48niGJ1X2+ORFWC//\nwPvMEGQ2nwKBgQDQYCuqQXLSlBS3EI5zTxBB6qiMc0s2P7yfRdcXW6JuBDO3YlPS\n6xV2W8sAsKxqNELFIDCgRHptocrah+dxRopxNFQyQD0S4kaS3Su1LfDgo0BVqH/P\nUYV5P5DTmweA4oeAs7NLUPd9SS6+GpB1wL+l0zEmVtLpDYxHbAPmrlCd9QKBgQCh\nQLvUvgoZ7pT/JyZF3Oy980L/n74JEqGlkjfihjJuzzYX5duGMa1FbKUvGqR/8HoB\n7GhczZmNs+4zjthqGCK6WBZM++Of/rlXH4QRBbdTOF3etBLlwxHIKcpYCDLPjm8l\nYYNOzro8FE0AEMNrMwoRbVom18V/YEhLmJXt6Je2CwKBgB2i6+a8sf8lYOxWneNp\nlbWSRoNF65wAU3uoG4HuPb+X5N5KSF+ox7zPL9S/QgccR399pjmVcDfsp7grnrOW\nPtmh+kpGg1/oiy+Fx/BpM9JWVPgaHEVIyPu49Kje7tuqM3hLIpdDfTBfXfv/Dxci\nMt+ecUPczsLKHxDHPxKJd0L4\n-----END PRIVATE KEY-----\n",
+  "client_email": "beckend2admin@my-project-beckend2.iam.gserviceaccount.com",
+  "client_id": "111113567105514330907",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/beckend2admin%40my-project-beckend2.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
