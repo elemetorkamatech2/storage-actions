@@ -1,0 +1,20 @@
+{"level":"INFO","time":"2023-06-14T07:05:31.957Z","pid":17184,"hostname":"רבקה","msg":"my app is listening on http://localhost:3000"}
+{"level":"INFO","time":"2023-06-14T07:05:31.976Z","pid":17184,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"INFO","time":"2023-06-14T07:31:46.967Z","pid":4004,"hostname":"רבקה","msg":"my app is listening on http://localhost:3000"}
+{"level":"INFO","time":"2023-06-14T07:31:46.978Z","pid":4004,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"INFO","time":"2023-06-14T09:21:18.108Z","pid":2776,"hostname":"רבקה","msg":"my app is listening on http://localhost:3000"}
+{"level":"INFO","time":"2023-06-14T09:21:18.121Z","pid":2776,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"INFO","time":"2023-06-14T09:36:55.638Z","pid":18288,"hostname":"רבקה","msg":"my app is listening on http://localhost:3000"}
+{"level":"INFO","time":"2023-06-14T09:36:55.654Z","pid":18288,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"INFO","time":"2023-06-14T09:37:58.577Z","pid":4040,"hostname":"רבקה","msg":"my app is listening on http://localhost:3000"}
+{"level":"INFO","time":"2023-06-14T09:37:58.590Z","pid":4040,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"ERROR","time":"2023-06-14T09:38:01.733Z","pid":4040,"hostname":"רבקה","errors":{"domain":["The domain is not available."]}}
+{"level":"INFO","time":"2023-06-14T09:44:33.409Z","pid":620,"hostname":"רבקה","msg":"my app is listening on http://localhost:3000"}
+{"level":"INFO","time":"2023-06-14T09:44:33.426Z","pid":620,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"ERROR","time":"2023-06-14T09:44:37.996Z","pid":620,"hostname":"רבקה","errors":{"domain":["The domain is not available."]}}
+{"level":"INFO","time":"2023-06-14T09:47:12.425Z","pid":17088,"hostname":"רבקה","msg":"my app is listening on http://localhost:3000"}
+{"level":"INFO","time":"2023-06-14T09:47:12.435Z","pid":17088,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"ERROR","time":"2023-06-14T09:47:18.413Z","pid":17088,"hostname":"רבקה","errors":{"domain":["The domain is not available."]}}
+{"level":"INFO","time":"2023-06-14T09:47:56.292Z","pid":15984,"hostname":"רבקה","msg":"my app is listening on http://localhost:3000"}
+{"level":"INFO","time":"2023-06-14T09:47:56.307Z","pid":15984,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"ERROR","time":"2023-06-14T09:47:59.896Z","pid":15984,"hostname":"רבקה","errors":{"domain":["The domain is not available."]}}
