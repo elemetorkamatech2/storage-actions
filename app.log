@@ -18,3 +18,6 @@
 {"level":"INFO","time":"2023-06-14T09:47:56.292Z","pid":15984,"hostname":"רבקה","msg":"my app is listening on http://localhost:3000"}
 {"level":"INFO","time":"2023-06-14T09:47:56.307Z","pid":15984,"hostname":"רבקה","msg":"connect to mongoDB"}
 {"level":"ERROR","time":"2023-06-14T09:47:59.896Z","pid":15984,"hostname":"רבקה","errors":{"domain":["The domain is not available."]}}
+{"level":"INFO","time":"2023-06-14T10:09:14.685Z","pid":16848,"hostname":"רבקה","msg":"my app is listening on http://localhost:3000"}
+{"level":"INFO","time":"2023-06-14T10:09:14.703Z","pid":16848,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"ERROR","time":"2023-06-14T10:09:17.834Z","pid":16848,"hostname":"רבקה","errors":{"domain":["The domain is not available."]}}

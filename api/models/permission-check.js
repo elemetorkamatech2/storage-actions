@@ -8,7 +8,7 @@ async function myFunction(req, res, next) {
   const bearerHeader = req.headers.authorization;
   const token = bearerHeader && bearerHeader.split(' ')[1];
   
-  if (token === undefined) return res.sendStatus(401);
+  if(!token) return res.sendStatus(401);
   try {
     const decodeToken = jwt.verify(token, PUBLIC_KEY, { algorithms: ['RS256'] });
     req.user = decodeToken.email;

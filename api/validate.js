@@ -10,14 +10,14 @@ const titleEnglish = /^[a-zA-Z\s]*$/;
 Validator.register(
   'EnglishLetters',
   (value) => titleEnglish.test(value),
-  'the title mast to be with English Letters or spaces Dipulatives',
+  'the title mast to be with English Letters or spaces ',
 );
 
 const description = /^[a-zA-Z\s]*$/;
 Validator.register(
   'desEnglishLetters',
   (value) => description.test(value),
-  'the description mast to be with English letters or spaces Dipulatives',
+  'the description mast to be with English letters or spaces ',
 );
 
 const tapedomin = /^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+[A-Za-z]{2,6}$/;
