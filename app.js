@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const {createTopic} = require('./pubsub/createWebsite')
 
+const logger = require('./logger');
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 
@@ -19,19 +20,25 @@ const connectionParams = {
 
 mongoose.connect(process.env.DB_CONNECTION, connectionParams)
     .then(() => {
-        console.log('connect to mongoDB');
-        createTopic()
+        logger.info('connect to mongoDB');
+        
    })
-   .catch((error) => {
-        console.log(error.message);
+    .catch((error) => {
+        logger.error(error.message);
     })
 
 
 app.use(bodyParser.json())
 
+app.get('/', (req, res) => {
+    res.status(200).send('HELLO ˜')
+})
+
 
 //יצירת מאזין בפורט שבחרנו
 app.listen(port, () => {
-    console.log(`my app is listening on http://localhost:${port}`);
+
+    logger.info(`my app is listening on http://localhost:${port}`);
 })
 
+createTopic()

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const backupSchema = new mongoose.Schema({
   backupId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
   siteId: {
