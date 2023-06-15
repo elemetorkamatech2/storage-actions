@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const chai = require('chai');
 const { describe, it } = require('mocha');
 const logger = require('../logger');
 
