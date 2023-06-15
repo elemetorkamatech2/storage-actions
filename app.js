@@ -7,10 +7,10 @@ const swaggerUi = require('swagger-ui-express');
 
 const swaggerFile = require('./swagger');
 const logger = require('./logger');
+const websiteRouter = require('./api/routes/websiteRouter');
 
 const app = express();
 dotenv.config();
-const messageRouter = require('./api/routes/websiteRoute');
 
 const connectionParams = {
   useNewUrlParser: true,
@@ -24,14 +24,12 @@ mongoose.connect(process.env.DB_CONNECTION, connectionParams)
     logger.error(error.message);
   });
 app.use(bodyParser.json());
-app.use('/messages', messageRouter);
+app.use(websiteRouter);
 app.get('/', (req, res) => {
   res.status(200).send('HELLO ˜');
 });
-app.use('doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
-require('./api/routes/backupRouter')(app);
-require('./api/routes/websiteRouter')(app);
-
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+app.use(websiteRouter);
 app.listen(process.env.PORT, () => {
   logger.info(`my app is listening on http://localhost:${process.env.PORT}`);
 });
