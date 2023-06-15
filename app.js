@@ -3,8 +3,8 @@ const bodyParser = require('body-parser')
 const logger = require('./logger');
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
-
-
+const websiteRoute = require('./api/routes/websiteRoute');
+const backupRoute = require('./api/routes/backupRoute');
 
 const app = express()
 const port = 3000
@@ -31,6 +31,10 @@ app.get('/', (req, res) => {
     res.status(200).send('HELLO ˜')
 })
 
+// require('./api/routes/websiteRoute')(app);
+// require('./api/routes/websiteRoute')(app);
+app.use('/website/', websiteRoute);
+app.use('/backup/', backupRoute);
 
 //יצירת מאזין בפורט שבחרנו
 app.listen(port, () => {
