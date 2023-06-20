@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/no-unresolved
 const swaggerAutogen = require('swagger-autogen');
 
-const outputFile = '.swagger_output.json';
-const endpointsFiles = ['.api/routes/backupRouter.js'/* , '.api/routes/websiteRouter.js' */];
+const outputFile = './swagger_output.json';
+const endpointsFiles = ['./api/routes/websiteRouter.js'];
 
 const doc = {
   tags: [
