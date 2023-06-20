@@ -2,11 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const messageRouter = require('./api/routes/websiteRoute');
 const logger = require('./logger');
 
-
 const app = express();
-const messageRouter = require('./api/routes/websiteRoute');
+
 dotenv.config();
 const connectionParams = {
   useNewUrlParser: true,
@@ -19,6 +19,10 @@ mongoose.connect(process.env.DB_CONNECTION, connectionParams)
   .catch((error) => {
     logger.error(error.message);
   });
+app.use(express.urlencoded({ extended: false }));
+
+app.use(express.json());
+
 app.use(bodyParser.json());
 app.use('/messages', messageRouter);
 app.get('/', (req, res) => {
@@ -27,7 +31,8 @@ app.get('/', (req, res) => {
 app.get('/', (req, res) => {
   res.status(200).send('HELLO ˜');
 });
-app.listen(process.env.PORT, () => {
-  logger.info(`my app is listening on http://localhost:${process.env.PORT}`);
-});
+// app.listen(process.env.PORT, () => {
+//   logger.info(`my app is listening on http://localhost:${process.env.PORT}`);
+// });
 
+module.exports = app;

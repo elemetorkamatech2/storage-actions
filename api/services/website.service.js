@@ -12,7 +12,6 @@ module.exports = {
         ],
         title: 'required|string|min:3|max:50|EnglishLetters',
         description: 'required|string|min:10|max:100|desEnglishLetters',
-        domain: 'isDomainAvailable',
         typeOfDomain: 'tapedomin',
       };
 
@@ -20,6 +19,7 @@ module.exports = {
         validator(website, validationRule, {}, (err, status) => {
           if (!status) {
             logger.error(err);
+            // eslint-disable-next-line prefer-promise-reject-errors
             reject({ success: false, message: 'An error occurred on the server' });
           } else {
             const message = new Website(website);
@@ -29,7 +29,6 @@ module.exports = {
         });
       });
     } catch (error) {
-logger.info(error);
       return { success: false, message: error.message };
     }
   },

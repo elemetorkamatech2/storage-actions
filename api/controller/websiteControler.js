@@ -1,6 +1,5 @@
 const websiteService = require('../services/website.service');
 
-
 module.exports = {
   createWebsite: async (req, res) => {
     try {

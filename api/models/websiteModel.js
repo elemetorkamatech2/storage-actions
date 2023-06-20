@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const websiteSchema = new mongoose.Schema({
   id: {
     type: mongoose.Schema.Types.ObjectId,

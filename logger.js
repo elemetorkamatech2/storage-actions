@@ -1,6 +1,5 @@
 const pino = require('pino');
 
-
 const fileTransports = pino.transport({
   target: 'pino/file',
   options: {
