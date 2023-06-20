@@ -47,11 +47,10 @@ Validator.register('isDomainAvailable', async (value) => {
   return available;
 }, 'The domain is not available.');
 const allowedCpuTypes = [686, 586, 486, 386];
-// Tighten password policy
 Validator.register(
   'wedCpuTypes',
   (value) => allowedCpuTypes.includes(value),
-  'the cpu mast to be 1 from the arr',
+  `the cpu mast to be 1 from the ${allowedCpuTypes} array`,
 );
 
 module.exports = validator;

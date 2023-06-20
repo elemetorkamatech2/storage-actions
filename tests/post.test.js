@@ -2,7 +2,7 @@
 const request = require('supertest');
 const app = require('../app');
 
-describe('GET /', () => {
+describe('post /', () => {
   it('POST / => create NEW item', () => (
     request(app)
       .post('/messages/website')
