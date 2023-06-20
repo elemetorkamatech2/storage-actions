@@ -20,11 +20,11 @@ Validator.register(
   'the description mast to be with English letters or spaces ',
 );
 
-const tapedomin = /^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+[A-Za-z]{2,6}$/;
+const typeDomain = /^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+[A-Za-z]{2,6}$/;
 Validator.register(
-  'tapedomin',
-  (value) => tapedomin.test(value),
-  'the tapedomin not Right',
+  'type-domain',
+  (value) => typeDomain.test(value),
+  'the type domain not Right',
 );
 
 const dns = require('dns');

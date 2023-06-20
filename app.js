@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const logger = require('./logger');
 
-
 const app = express();
-const messageRouter = require('./api/routes/websiteRoute');
+const websiteRouter = require('./api/routes/websiteRoute');
+
 dotenv.config();
 const connectionParams = {
   useNewUrlParser: true,
@@ -19,15 +19,13 @@ mongoose.connect(process.env.DB_CONNECTION, connectionParams)
   .catch((error) => {
     logger.error(error.message);
   });
+app.use(express.json());
 app.use(bodyParser.json());
-app.use('/messages', messageRouter);
+app.use('/', websiteRouter);
 app.get('/', (req, res) => {
-  res.status(200).send('HELLO ˜');
+  res.status(200).send('HELLO 😀');
 });
-app.get('/', (req, res) => {
-  res.status(200).send('HELLO ˜');
-});
+
 app.listen(process.env.PORT, () => {
   logger.info(`my app is listening on http://localhost:${process.env.PORT}`);
 });
-

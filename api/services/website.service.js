@@ -1,3 +1,4 @@
+/* eslint-disable prefer-promise-reject-errors */
 const Website = require('../models/websiteModel');
 const logger = require('../../logger');
 const validator = require('../validate');
@@ -13,7 +14,7 @@ module.exports = {
         title: 'required|string|min:3|max:50|EnglishLetters',
         description: 'required|string|min:10|max:100|desEnglishLetters',
         domain: 'isDomainAvailable',
-        typeOfDomain: 'tapedomin',
+        typeOfDomain: 'type-domain',
       };
 
       return new Promise((resolve, reject) => {
@@ -29,7 +30,7 @@ module.exports = {
         });
       });
     } catch (error) {
-logger.info(error);
+      logger.info(error);
       return { success: false, message: error.message };
     }
   },
