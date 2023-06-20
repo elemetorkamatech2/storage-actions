@@ -2,7 +2,7 @@
 const swaggerAutogen = require('swagger-autogen');
 
 const outputFile = '.swagger_output.json';
-const endpointsFiles = ['.api/routes/backupRouter.js', '.api/routes/websiteRouter.js'];
+const endpointsFiles = ['.api/routes/backupRouter.js'/* , '.api/routes/websiteRouter.js' */];
 
 const doc = {
   tags: [
