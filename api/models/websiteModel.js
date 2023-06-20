@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const websiteSchema = new mongoose.Schema({
   id: {
     type: mongoose.Schema.Types.ObjectId,
@@ -30,11 +29,9 @@ const websiteSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-
-    enum : ['pending', 'ready_to_use', 'start','stop','delete','backup'],
-    default: 'no_status'
-   },  
-
+    enum: ['pending', 'ready_to_use', 'start', 'stop', 'going_to_be_deleted', 'delete', 'backup'],
+    default: 'no_status',
+  },
   backups: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Backup',

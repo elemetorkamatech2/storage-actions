@@ -4,8 +4,9 @@
   "description": "service for storage actions",
   "main": "index.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "swagger-autogen": "node swagger.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,8 @@
     "jsonwebtoken": "^9.0.0",
     "keycloak-connect": "^21.1.1",
     "mongodb": "^5.5.0",
+    "swagger-autogen": "^2.23.1",
+    "swagger-ui-express": "^4.6.3",
     "mongoose": "^7.2.4",
     "pino": "^8.14.1",
     "validatorjs": "^3.22.1",
