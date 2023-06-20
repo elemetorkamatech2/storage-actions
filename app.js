@@ -3,10 +3,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const logger = require('./logger');
-
-
 const app = express();
-const messageRouter = require('./api/routes/websiteRoute');
+const websiteRouter = require('./api/routes/websiteRoute');
+const backupRouter = require('./api/routes/backupRoute');
 dotenv.config();
 const connectionParams = {
   useNewUrlParser: true,
@@ -20,7 +19,9 @@ mongoose.connect(process.env.DB_CONNECTION, connectionParams)
     logger.error(error.message);
   });
 app.use(bodyParser.json());
-app.use('/messages', messageRouter);
+
+app.use('/websit', websiteRouter);
+app.use('/backup/', backupRouter);
 app.get('/', (req, res) => {
   res.status(200).send('HELLO ˜');
 });
