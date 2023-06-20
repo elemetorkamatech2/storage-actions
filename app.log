@@ -615,3 +615,24 @@
 {"level":"INFO","time":"2023-06-20T19:19:23.524Z","pid":15320,"hostname":"רבקה","msg":"Server running on port 3000, http://localhost:3000"}
 {"level":"INFO","time":"2023-06-20T19:19:23.539Z","pid":15320,"hostname":"רבקה","msg":"connect to mongoDB"}
 {"level":"INFO","time":"2023-06-20T19:19:35.634Z","pid":7820,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"INFO","time":"2023-06-20T19:33:45.106Z","pid":760,"hostname":"רבקה","msg":"Server running on port 3000, http://localhost:3000"}
+{"level":"INFO","time":"2023-06-20T19:33:45.134Z","pid":760,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"INFO","time":"2023-06-20T19:33:58.904Z","pid":1836,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"INFO","time":"2023-06-20T19:57:21.553Z","pid":10492,"hostname":"רבקה","msg":"Server running on port 3000, http://localhost:3000"}
+{"level":"INFO","time":"2023-06-20T19:57:21.575Z","pid":10492,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"INFO","time":"2023-06-20T19:57:22.496Z","pid":11488,"hostname":"רבקה","msg":"Server running on port 3000, http://localhost:3000"}
+{"level":"INFO","time":"2023-06-20T19:57:22.509Z","pid":11488,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"INFO","time":"2023-06-20T19:57:24.071Z","pid":18268,"hostname":"רבקה","msg":"Server running on port 3000, http://localhost:3000"}
+{"level":"INFO","time":"2023-06-20T19:57:24.091Z","pid":18268,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"INFO","time":"2023-06-20T19:57:25.239Z","pid":1884,"hostname":"רבקה","msg":"Server running on port 3000, http://localhost:3000"}
+{"level":"INFO","time":"2023-06-20T19:57:25.250Z","pid":1884,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"INFO","time":"2023-06-20T19:57:33.096Z","pid":14996,"hostname":"רבקה","msg":"Server running on port 3000, http://localhost:3000"}
+{"level":"INFO","time":"2023-06-20T19:57:33.113Z","pid":14996,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"INFO","time":"2023-06-20T19:57:36.597Z","pid":14076,"hostname":"רבקה","msg":"Server running on port 3000, http://localhost:3000"}
+{"level":"INFO","time":"2023-06-20T19:57:36.608Z","pid":14076,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"INFO","time":"2023-06-20T19:57:42.067Z","pid":15356,"hostname":"רבקה","msg":"Server running on port 3000, http://localhost:3000"}
+{"level":"INFO","time":"2023-06-20T19:57:42.083Z","pid":15356,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"INFO","time":"2023-06-20T19:57:45.882Z","pid":15776,"hostname":"רבקה","msg":"Server running on port 3000, http://localhost:3000"}
+{"level":"INFO","time":"2023-06-20T19:57:45.905Z","pid":15776,"hostname":"רבקה","msg":"connect to mongoDB"}
+{"level":"INFO","time":"2023-06-20T19:57:48.119Z","pid":3224,"hostname":"רבקה","msg":"Server running on port 3000, http://localhost:3000"}
+{"level":"INFO","time":"2023-06-20T19:57:48.138Z","pid":3224,"hostname":"רבקה","msg":"connect to mongoDB"}
