@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
-const chai = require('chai');
-const { expect } = chai;
+
 const { describe, it } = require('mocha');
 const logger = require('../logger');
-
 
 describe('MongoDB Connection', () => {
   it('should connect to MongoDB', () => mongoose.connect('mongodb://localhost:27017/storageAction')
@@ -11,7 +9,7 @@ describe('MongoDB Connection', () => {
       logger.info('MongoDB connection successful');
     })
     .catch((err) => {
-      logger.eror('MongoDB connection error:', err);
+      logger.error('MongoDB connection error:', err);
       throw err;
     }));
 });

@@ -1,4 +1,5 @@
 const Validator = require('validatorjs');
+const dns = require('dns');
 
 const validator = async (body, rules, customMessages, callback) => {
   const validation = new Validator(body, rules, customMessages);
@@ -20,22 +21,20 @@ Validator.register(
   'the description mast to be with English letters or spaces ',
 );
 
-const typeDomain = /^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+[A-Za-z]{2,6}$/;
+const domainType = /^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+[A-Za-z]{2,6}$/;
 Validator.register(
-  'type-domain',
-  (value) => typeDomain.test(value),
-  'the type domain not Right',
+  'domain-type',
+  (value) => domainType.test(value),
+  'the type of domain not Right',
 );
-
-const dns = require('dns');
 
 function isDomainAvailable(domain) {
   return new Promise((resolve) => {
     dns.resolve(domain, (err) => {
       if (err && err.code === 'ENOTFOUND') {
-        resolve(true); // domain is available
+        resolve(true);
       } else {
-        resolve(false); // domain is not available
+        resolve(false);
       }
     });
   });
@@ -47,7 +46,6 @@ Validator.register('isDomainAvailable', async (value) => {
   return available;
 }, 'The domain is not available.');
 const allowedCpuTypes = [686, 586, 486, 386];
-// Tighten password policy
 Validator.register(
   'wedCpuTypes',
   (value) => allowedCpuTypes.includes(value),
