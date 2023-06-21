@@ -34,7 +34,6 @@ app.use(websiteRouter);
 app.get('/', (req, res) => {
   res.status(200).send('HELLO ˜');
 });
-
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use(websiteRouter);
 module.exports = app;
