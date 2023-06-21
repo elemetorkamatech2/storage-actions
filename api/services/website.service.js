@@ -30,6 +30,8 @@ module.exports = {
         });
       });
     } catch (error) {
+      logger.info(error);
+
       return { success: false, message: error.message };
     }
   },

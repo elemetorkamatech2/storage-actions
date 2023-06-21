@@ -6,7 +6,6 @@ const fileTransports = pino.transport({
     destination: `${__dirname}/app.log`,
   },
 });
-
 module.exports = pino({
   level: process.env.PINO_LOG_LEVEL || 'info',
   formatters: {

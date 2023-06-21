@@ -4,9 +4,11 @@
   "description": "service for storage actions",
   "main": "index.js",
   "scripts": {
+
     "start": "node servis.js",
     "dev": "nodemon servis.js",
     "test": "jest --watchAll"
+
   },
   "repository": {
     "type": "git",
@@ -27,6 +29,8 @@
     "jsonwebtoken": "^9.0.0",
     "keycloak-connect": "^21.1.1",
     "mongodb": "^5.5.0",
+    "swagger-autogen": "^2.23.1",
+    "swagger-ui-express": "^4.6.3",
     "mongoose": "^7.2.4",
     "pino": "^8.14.1",
     "request": "^2.88.2",
