@@ -41,6 +41,5 @@ const websiteSchema = new mongoose.Schema({
     required: true,
   }],
 });
-
 const Website = mongoose.model('websiteModel', websiteSchema);
 module.exports = Website;

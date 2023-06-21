@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+
 // eslint-disable-next-line import/no-unresolved
 const swaggerUi = require('swagger-ui-express');
 
@@ -10,6 +11,7 @@ const logger = require('./logger');
 const websiteRouter = require('./api/routes/websiteRouter');
 
 const app = express();
+
 dotenv.config();
 
 const connectionParams = {
@@ -23,6 +25,10 @@ mongoose.connect(process.env.DB_CONNECTION, connectionParams)
   .catch((error) => {
     logger.error(error.message);
   });
+app.use(express.urlencoded({ extended: false }));
+
+app.use(express.json());
+
 app.use(bodyParser.json());
 app.use(websiteRouter);
 app.get('/', (req, res) => {
@@ -30,6 +36,4 @@ app.get('/', (req, res) => {
 });
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use(websiteRouter);
-app.listen(process.env.PORT, () => {
-  logger.info(`my app is listening on http://localhost:${process.env.PORT}`);
-});
+module.exports = app;
