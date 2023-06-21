@@ -9,6 +9,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerFile = require('./swagger');
 const logger = require('./logger');
 const websiteRouter = require('./api/routes/websiteRouter');
+const backupRouter = require('./api/routes/backupRouter');
 
 const app = express();
 
@@ -30,10 +31,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use(bodyParser.json());
-app.use(websiteRouter);
+app.use('/website/',websiteRouter);
+app.use('/backup/', backupRouter);
 app.get('/', (req, res) => {
   res.status(200).send('HELLO ˜');
 });
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 app.use(websiteRouter);
 module.exports = app;
