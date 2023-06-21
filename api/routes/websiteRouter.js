@@ -1,8 +1,9 @@
 const express = require('express');
-// const { myFunction } = require('../models/permission-check');
+const { createWebsite } = require('../controller/websiteControler');
+const auth = require('../middleware/auth');
 
 const router = express.Router();
-const { createWebsite } = require('../controller/websiteControler');
 
-router.post('/website', createWebsite);
+router.post('/website', auth, createWebsite);
+
 module.exports = router;
