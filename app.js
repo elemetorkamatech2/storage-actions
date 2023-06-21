@@ -31,7 +31,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use(bodyParser.json());
-app.use('/website/',websiteRouter);
+app.use('/website/', websiteRouter);
 app.use('/backup/', backupRouter);
 app.get('/', (req, res) => {
   res.status(200).send('HELLO ˜');
