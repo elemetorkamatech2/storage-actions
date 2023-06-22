@@ -27,12 +27,11 @@ mongoose.connect(process.env.DB_CONNECTION, connectionParams)
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(websiteRouter);
+app.use('/websiteRouter', websiteRouter);
 
 app.get('/', (req, res) => {
   res.status(200).send('HELLO ˜');
 });
 
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
-
 module.exports = app;
