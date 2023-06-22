@@ -41,11 +41,11 @@ module.exports = pino(
 
     },
    
-    prettyPrint: {
-      colorize: true, 
-      levelFirst: true,
-      translateTime: 'yyyy-dd-mm, h:MM:ss TT',
-    },
+    // prettyPrint: {
+    //   colorize: true, 
+    //   levelFirst: true,
+    //   translateTime: 'yyyy-dd-mm, h:MM:ss TT',
+    // },
      
      
      

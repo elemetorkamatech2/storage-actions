@@ -1,27 +1,11 @@
-const { PubSub } = require('@google-cloud/pubsub');
-const path = require('path');
-require('dotenv').config();
-
-const keyFilePath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
-const pubsub = new PubSub({
-  keyFilename: keyFilePath
-});
-console.log(pubsub.getClient_)
-
-// Set the name of the new topic
-const topicName = 'my-new-topic';
-
-// Create the new topic asynchronously
-async function createTopic() {
-  try {
-    const topic = await pubsub.topic("OOOOOO");
-    await topic.create();
-    console.log(`Topic ${topicName} created successfully`);
-  } catch (err) {
-    console.error(err);
-  }
+const amqp = require('amqplib');
+async function sendToQueue(queueName, message) {
+  const connection = await amqp.connect('amqp://localhost');
+  const channel = await connection.createChannel();
+  await channel.assertQueue(queueName, { durable: false });
+  channel.sendToQueue(queueName, Buffer.from(message));
+  console.log(`Sent message "${message}" to queue "${queueName}"`);
+  await channel.close();
+  await connection.close();
 }
-
-// Export the createTopic function
-exports.createTopic = createTopic;
-
+sendToQueue('my-queue', 'rabbitmq work!');

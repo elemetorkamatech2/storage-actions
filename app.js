@@ -41,4 +41,3 @@ app.listen(port, () => {
     logger.info(`my app is listening on http://localhost:${port}`);
 })
 
-createTopic()
