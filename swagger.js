@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
 const swaggerAutogen = require('swagger-autogen');
 
 const outputFile = './swagger_output.json';
@@ -15,7 +14,10 @@ const doc = {
   ],
 };
 
-swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
-  // eslint-disable-next-line global-require
-  require('./app');
+const options = {
+  watch: false, // Disable Swagger-autogen watch mode
+};
+
+swaggerAutogen(outputFile, endpointsFiles, doc, options).then(() => {
+  console.log('Swagger documentation generated successfully');
 });
