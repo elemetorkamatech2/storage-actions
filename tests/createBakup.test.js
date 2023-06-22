@@ -8,7 +8,6 @@ const Backup = require('../api/models/backupModel');
 
 jest.mock('../api/models/websiteModel');
 jest.mock('../api/models/backupModel');
-
 describe('createBackup', () => {
   const req = { params: { id: '123' } };
   const res = {

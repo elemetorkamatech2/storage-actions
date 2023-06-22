@@ -9,7 +9,7 @@ module.exports = {
     try {
       const websiteToBackup = await findById(req.params.id).exec();
       if (!websiteToBackup) return res.status(404).send('Website not found!');
-      if (websiteToBackup.backups.length>0) return res.status(404).send('This website is already backed up');
+      if (websiteToBackup.backups.length > 0) return res.status(404).send('This website is already backed up');
       const backupWebsiteData = {
         ...websiteToBackup,
         status: 'backup',
