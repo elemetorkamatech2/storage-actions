@@ -20,11 +20,11 @@ Validator.register(
   'the description mast to be with English letters or spaces ',
 );
 
-const tapedomin = /^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+[A-Za-z]{2,6}$/;
+const domainType = /^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+[A-Za-z]{2,6}$/;
 Validator.register(
-  'tapedomin',
-  (value) => tapedomin.test(value),
-  'the tapedomin not Right',
+  'domainType',
+  (value) => domainType.test(value),
+  'The domain type is not Right',
 );
 
 const dns = require('dns');
@@ -33,9 +33,9 @@ function isDomainAvailable(domain) {
   return new Promise((resolve) => {
     dns.resolve(domain, (err) => {
       if (err && err.code === 'ENOTFOUND') {
-        resolve(true); // domain is available
+        resolve(true);
       } else {
-        resolve(false); // domain is not available
+        resolve(false);
       }
     });
   });

@@ -5,12 +5,12 @@ const logger = require('../../logger');
 dotenv.config();
 module.exports = (req, res, next) => {
   try {
-    const useridbody = req.body.userId;
+    const userIdBody = req.body.userId;
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, process.env.PUBLIC_KEY);
     const { userId } = decodedToken;
     logger.info(userId);
-    if (useridbody && useridbody !== userId) {
+    if (userIdBody && userIdBody !== userId) {
       throw new Error('Invalid user ID');
     } else {
       next();
