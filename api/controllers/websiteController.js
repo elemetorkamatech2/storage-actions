@@ -2,6 +2,9 @@ import websiteService from '../services/website.service.js';
 
 export default {
   createWebsite: async (req, res) => {
+    /*
+      #swagger.tags=['website']
+    */
     try {
       const website = req.body;
       const result = await websiteService.create(website);

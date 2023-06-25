@@ -4,7 +4,7 @@ import app from '../app.js';
 request.describe('post /', () => {
   request.it('POST / => create NEW item', () => (
     request(app)
-      .post('/messages/website')
+      .post('/website')
 
       .send({
         title: 'New Website',
