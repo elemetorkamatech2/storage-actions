@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
@@ -10,16 +9,6 @@ import logger from './logger.js';
 import websiteRouter from './api/routes/websiteRouter.js';
 
 const swaggerFile = JSON.parse(readFileSync('./swagger_output.json'));
-=======
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const swaggerUi = require('swagger-ui-express');
-const swaggerFile = require('./swagger_output.json');
-const logger = require('./logger');
-const websiteRouter = require('./api/routes/websiteRouter');
->>>>>>> bc73c8ddc80c2c4a90ad5750c4fef9a469593e6f
 
 const app = express();
 
