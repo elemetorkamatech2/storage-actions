@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const websiteSchema = new mongoose.Schema({
   title: {
@@ -39,4 +39,4 @@ const websiteSchema = new mongoose.Schema({
   }],
 });
 const Website = mongoose.model('websiteModel', websiteSchema);
-module.exports = Website;
+export default Website;

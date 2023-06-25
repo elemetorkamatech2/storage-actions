@@ -1,9 +1,11 @@
-const express = require('express');
-const { createWebsite } = require('../controllers/websiteController');
-const auth = require('../middlewares/auth');
+import express from 'express';
+import createWebsite from '../controllers/websiteController.js';
+import auth from '../middlewares/auth.js';
 
 const router = express.Router();
 
-router.post('/website', auth, createWebsite);
+router.post('/website', auth, () => function(req, res){
+    createWebsite
+  });
 
-module.exports = router;
+export default router;

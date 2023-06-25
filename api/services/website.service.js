@@ -1,8 +1,8 @@
-const Website = require('../models/websiteModel');
-const logger = require('../../logger');
-const validator = require('../validate');
+import Website from '../models/websiteModel.js';
+import logger from '../../logger.js';
+import validator from '../validate.js';
 
-module.exports = {
+export default {
   create: async (website) => {
     try {
       const validationRule = {
