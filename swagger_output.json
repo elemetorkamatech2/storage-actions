@@ -57,5 +57,65 @@
         }
       }
     }
+  },
+  "definitions": {
+    "addWebsite": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "string"
+        },
+        "description": {
+          "type": "string",
+          "example": "string"
+        },
+        "domain": {
+          "type": "string",
+          "example": "string"
+        },
+        "typeOfDomain": {
+          "type": "string",
+          "example": "string"
+        },
+        "cpu": {
+          "type": "string",
+          "example": "string"
+        },
+        "memory": {
+          "type": "string",
+          "example": "string"
+        },
+        "userId": {
+          "type": "array",
+          "example": [
+            "string"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string",
+          "example": "string"
+        },
+        "backups": {
+          "type": "array",
+          "example": [],
+          "items": {}
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "domain",
+        "typeOfDomain",
+        "cpu",
+        "memory",
+        "userId",
+        "status",
+        "backups"
+      ]
+    }
   }
 }
