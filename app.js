@@ -34,4 +34,5 @@ app.get('/', (req, res) => {
 });
 
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 module.exports = app;

@@ -4,8 +4,8 @@
   "description": "service for storage actions",
   "main": "index.js",
   "scripts": {
-    "start": "node servis.js",
-    "dev": "nodemon servis.js",
+    "start": "node service.js",
+    "dev": "nodemon service.js",
     "test": "jest --watchAll",
     "swagger-autogen": "node swagger.js"
   },
