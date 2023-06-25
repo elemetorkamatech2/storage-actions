@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-const request = require('supertest');
-const jwt = require('jsonwebtoken');
-const app = require('../app');
+import request from 'supertest';
+import jwt from 'jsonwebtoken';
+import app from '../app.js';
 
 describe('post /', () => {
   it('POST / => create NEW item', async () => {
@@ -11,7 +11,7 @@ describe('post /', () => {
     const token = jwt.sign(payload, secretKey, options);
 
     const response = await request(app)
-      .post('/websiteRouter/website')
+      .post('/website')
       .set('Authorization', `Bearer ${token}`)
       .send({
         title: 'New Website',
@@ -24,7 +24,6 @@ describe('post /', () => {
         status: 'pending',
         backups: [],
       });
-
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
       message: expect.objectContaining({

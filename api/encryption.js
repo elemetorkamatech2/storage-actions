@@ -1,7 +1,8 @@
-const crypto = require('crypto');
-const dotenv = require('dotenv');
+import crypto from 'crypto';
+import dotenv from 'dotenv';
 
 dotenv.config();
+
 const key = crypto
   .createHash('sha512')
   .update(process.env.secret_key)
@@ -14,20 +15,18 @@ const encryptionIV = crypto
   .digest('hex')
   .substring(0, 16);
 
-// eslint-disable-next-line func-names
-module.exports.encryptData = function (data) {
+export function encryptData(data) {
   const cipher = crypto.createCipheriv(process.env.ecnryption_method, key, encryptionIV);
   return Buffer.from(
-    cipher.update(data, 'utf8', 'hex') + cipher.final('hex')
+    cipher.update(data, 'utf8', 'hex') + cipher.final('hex'),
   ).toString('base64');
-};
+}
 
-// eslint-disable-next-line func-names
-module.exports.decryptData = function (encryptedData) {
+export function decryptData(encryptedData) {
   const buff = Buffer.from(encryptedData, 'base64');
   const decipher = crypto.createDecipheriv(process.env.ecnryption_method, key, encryptionIV);
   return (
     decipher.update(buff.toString('utf8'), 'hex', 'utf8')
     + decipher.final('utf8')
   );
-};
+}

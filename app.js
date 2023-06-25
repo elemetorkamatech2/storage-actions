@@ -1,11 +1,14 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const swaggerUi = require('swagger-ui-express');
-const swaggerFile = require('./swagger_output.json');
-const logger = require('./logger');
-const websiteRouter = require('./api/routes/websiteRouter');
+import express from 'express';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import swaggerUi from 'swagger-ui-express';
+import { readFileSync } from 'fs';
+
+import logger from './logger.js';
+import websiteRouter from './api/routes/websiteRouter.js';
+
+const swaggerFile = JSON.parse(readFileSync('./swagger_output.json'));
 
 const app = express();
 
@@ -27,12 +30,11 @@ mongoose.connect(process.env.DB_CONNECTION, connectionParams)
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(bodyParser.json());
-app.use('/websiteRouter', websiteRouter);
+app.use(websiteRouter);
 
 app.get('/', (req, res) => {
   res.status(200).send('HELLO ˜');
 });
 
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
-
-module.exports = app;
+export default app;
