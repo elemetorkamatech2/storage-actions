@@ -1,11 +1,10 @@
-/* eslint-disable no-undef */
-const request = require('supertest');
-const app = require('../app');
+import request from 'supertest';
+import app from '../app.js';
 
-describe('post /', () => {
-  it('POST / => create NEW item', () => (
+request.describe('post /', () => {
+  request.it('POST / => create NEW item', () => (
     request(app)
-      .post('/messages/website')
+      .post('/website')
 
       .send({
         title: 'New Website',
@@ -24,17 +23,17 @@ describe('post /', () => {
       .expect(200)
 
       .then((response) => {
-        expect(response.body).toEqual({
-          message: expect.objectContaining({
+        request.expect(response.body).toEqual({
+          message: request.expect.objectContaining({
             title: 'New Website',
             description: 'A new website for testing purposes',
-            domain: expect.arrayContaining(['example.com']),
+            domain: request.expect.arrayContaining(['example.com']),
             typeOfDomain: 'my-example-domain.co.uk',
             cpu: 686,
             memory: 16,
-            backups: expect.arrayContaining([]),
+            backups: request.expect.arrayContaining([]),
             status: 'pending',
-            userId: expect.arrayContaining(['123456']),
+            userId: request.expect.arrayContaining(['123456']),
           }),
         });
       })

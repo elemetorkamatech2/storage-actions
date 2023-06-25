@@ -1,7 +1,10 @@
-const websiteService = require('../services/website.service');
+import websiteService from '../services/website.service.js';
 
-module.exports = {
+export default {
   createWebsite: async (req, res) => {
+    /*
+      #swagger.tags=['website']
+    */
     try {
       const website = req.body;
       const result = await websiteService.create(website);

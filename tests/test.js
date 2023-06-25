@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const { describe, it } = require('mocha');
-const logger = require('../logger');
+import mongoose from 'mongoose';
+import { describe, it } from 'mocha';
+import logger from '../logger.js';
 
 describe('MongoDB Connection', () => {
   it('should connect to MongoDB', () => mongoose.connect('mongodb://localhost:27017/storageAction')

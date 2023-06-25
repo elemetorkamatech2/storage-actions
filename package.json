@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "service for storage actions",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "node servis.js",
-    "dev": "nodemon servis.js",
+    "start": "node service.js",
+    "dev": "nodemon service.js",
     "test": "jest --watchAll",
     "swagger-autogen": "node swagger.js"
   },
@@ -29,6 +30,7 @@
     "keycloak-connect": "^21.1.1",
     "mongodb": "^5.5.0",
     "mongoose": "^7.2.4",
+    "nodemon": "^2.0.22",
     "pino": "^8.14.1",
     "request": "^2.88.2",
     "swagger-autogen": "^2.23.1",

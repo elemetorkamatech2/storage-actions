@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const backupSchema = new mongoose.Schema({
   backupId: {
@@ -18,4 +18,4 @@ const backupSchema = new mongoose.Schema({
 
 const Backup = mongoose.model('Backup', backupSchema);
 
-module.exports = Backup;
+export default Backup;

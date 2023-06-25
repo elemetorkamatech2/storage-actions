@@ -1,4 +1,4 @@
-const swaggerAutogen = require('swagger-autogen');
+import swaggerAutogen from 'swagger-autogen';
 
 const outputFile = './swagger_output.json';
 const endpointsFiles = ['./api/routes/websiteRouter.js'];
@@ -15,9 +15,8 @@ const doc = {
 };
 
 const options = {
-  watch: false, // Disable Swagger-autogen watch mode
+  watch: false,
 };
 
 swaggerAutogen(outputFile, endpointsFiles, doc, options).then(() => {
-  console.log('Swagger documentation generated successfully');
 });
