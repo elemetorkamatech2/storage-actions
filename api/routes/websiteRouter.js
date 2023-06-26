@@ -1,9 +1,9 @@
 import express from 'express';
-import createWebsite from '../controllers/websiteController.js';
+import controller from '../controllers/websiteController.js';
 import auth from '../middlewares/auth.js';
 
 const router = express.Router();
 
-router.post('/website', auth, () => createWebsite);
+router.post('/website', auth, controller.createWebsite);
 
 export default router;

@@ -13,7 +13,7 @@ export default {
         title: 'required|string|min:3|max:50|EnglishLetters',
         description: 'required|string|min:10|max:100|desEnglishLetters',
         typeOfDomain: 'domainType',
-        domain: 'isDomainAvailable',
+        // domain: 'isDomainAvailable',
       };
 
       return new Promise((resolve, reject) => {
