@@ -5,6 +5,7 @@ import validator from '../validate.js';
 export default {
   create: async (website) => {
     try {
+      logger.info('awsertyuio');
       const validationRule = {
         cpu: [
           'required',

@@ -12,6 +12,19 @@ const doc = {
       name: 'website',
     },
   ],
+  definitions: {
+    addWebsite: {
+      $title: 'string',
+      $description: 'string',
+      $domain: 'string',
+      $typeOfDomain: 'string',
+      $cpu: 'string',
+      $memory: 'string',
+      $userId: ['string'],
+      $status: 'string',
+      $backups: [],
+    },
+  },
 };
 
 const options = {
