@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
-const websiteModel = require('../api/models/websiteModel');
-const { getAll } = require('../api/controllers/websiteController');
+import controller from '../api/controllers/websiteController.js';
+
+import websiteModel from '../api/models/websiteModel.js';
 
 describe('getAll function', () => {
   let req;
@@ -28,7 +29,7 @@ describe('getAll function', () => {
     };
     websiteModel.find = jest.fn().mockResolvedValue([website1, website2]);
 
-    await getAll(req, res);
+    await controller.getAll(req, res);
 
     expect(websiteModel.find).toHaveBeenCalledTimes(1);
     expect(res.status).toHaveBeenCalledWith(200);
@@ -39,7 +40,7 @@ describe('getAll function', () => {
     req.headers.authorization = `Bearer ${token}`;
     websiteModel.find = jest.fn().mockRejectedValue(new Error('Error message'));
 
-    await getAll(req, res);
+    await controller.getAll(req, res);
 
     expect(websiteModel.find).toHaveBeenCalledTimes(1);
     expect(res.status).toHaveBeenCalledWith(404);
@@ -49,7 +50,7 @@ describe('getAll function', () => {
     const token = 'invalid_token';
     req.headers.authorization = `Bearer ${token}`;
 
-    await getAll(req, res);
+    await controller.getAll(req, res);
 
     expect(websiteModel.find).not.toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(401);

@@ -1,9 +1,9 @@
 /* eslint-disable prefer-promise-reject-errors */
-const Website = require('../models/websiteModel');
-const logger = require('../../logger');
-const validator = require('../validate');
+import Website from '../models/websiteModel.js';
+import logger from '../../logger.js';
+import validator from '../validate.js';
 
-module.exports = {
+export default {
   getAll: async () => {
     try {
       const websites = await Website.find();
@@ -25,6 +25,7 @@ module.exports = {
   },
   create: async (website) => {
     try {
+      logger.info('awsertyuio');
       const validationRule = {
         cpu: [
           'required',
@@ -32,14 +33,15 @@ module.exports = {
         ],
         title: 'required|string|min:3|max:50|EnglishLetters',
         description: 'required|string|min:10|max:100|desEnglishLetters',
-        domain: 'isDomainAvailable',
-        typeOfDomain: 'domain-type',
+        typeOfDomain: 'domainType',
+        // domain: 'isDomainAvailable',
       };
 
       return new Promise((resolve, reject) => {
         validator(website, validationRule, {}, (err, status) => {
           if (!status) {
             logger.error(err);
+            // eslint-disable-next-line prefer-promise-reject-errors
             reject({ success: false, message: 'An error occurred on the server' });
           } else {
             const message = new Website(website);

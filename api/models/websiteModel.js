@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const websiteSchema = new mongoose.Schema({
   title: {
@@ -26,7 +26,6 @@ const websiteSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-
     enum: ['pending', 'ready_to_use', 'start', 'stop', 'going_to_be_deleted', 'delete', 'backup'],
     default: 'no_status',
   },
@@ -40,4 +39,4 @@ const websiteSchema = new mongoose.Schema({
   }],
 });
 const Website = mongoose.model('websiteModel', websiteSchema);
-module.exports = Website;
+export default Website;

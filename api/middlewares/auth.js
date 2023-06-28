@@ -1,9 +1,9 @@
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
-const logger = require('../../logger');
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import logger from '../../logger.js';
 
 dotenv.config();
-module.exports = (req, res, next) => {
+export default (req, res, next) => {
   try {
     const userIdBody = req.body.userId;
     const token = req.headers.authorization.split(' ')[1];

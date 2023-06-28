@@ -1,5 +1,5 @@
-const Validator = require('validatorjs');
-const dns = require('dns');
+import Validator from 'validatorjs';
+import dns from 'dns';
 
 const validator = async (body, rules, customMessages, callback) => {
   const validation = new Validator(body, rules, customMessages);
@@ -52,4 +52,4 @@ Validator.register(
   `the cpu mast to be 1 from the ${allowedCpuTypes} array`,
 );
 
-module.exports = validator;
+export default validator;

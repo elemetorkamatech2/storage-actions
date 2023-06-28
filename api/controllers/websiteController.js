@@ -1,7 +1,13 @@
-const websiteService = require('../services/website.service');
-// const websiteModel = require('../models/websiteModel');
+import websiteService from '../services/website.service.js';
+import { encryptData, decryptData } from '../encryption.js';
 
-module.exports = {
+async function create(encryptedWebsite) {
+  const website = JSON.parse(decryptData(encryptedWebsite));
+  const result = await websiteService.create(website);
+  return { success: true, message: result.message };
+}
+
+export default {
   getAll: async (req, res) => {
     try {
       const websites = await websiteService.getAll();
@@ -24,9 +30,21 @@ module.exports = {
     }
   },
   createWebsite: async (req, res) => {
+    /*
+      #swagger.tags=['website']
+    */
+    // #swagger.parameters['website'] = {
+    //   in: 'body',
+    //   required: true,
+    //   schema: { $ref: "#/definitions/addWebsite" }
+    // }
     try {
+      // Encrypt the website data
       const website = req.body;
-      const result = await websiteService.create(website);
+      const encryptedData = encryptData(JSON.stringify(website));
+
+      // Call the websiteService to create the website with the encrypted data
+      const result = await create(encryptedData);
       if (result.success) {
         res.status(200).send({ message: result.message });
       } else {
