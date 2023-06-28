@@ -1,8 +1,28 @@
+/* eslint-disable prefer-promise-reject-errors */
 import Website from '../models/websiteModel.js';
 import logger from '../../logger.js';
 import validator from '../validate.js';
 
 export default {
+  getAll: async () => {
+    try {
+      const websites = await Website.find();
+      return websites;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
+  getById: async (websiteId) => {
+    try {
+      const website = await Website.findById(websiteId);
+      if (website) {
+        return website;
+      }
+      throw new Error('Website not found');
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
   create: async (website) => {
     try {
       logger.info('awsertyuio');

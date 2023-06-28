@@ -8,6 +8,27 @@ async function create(encryptedWebsite) {
 }
 
 export default {
+  getAll: async (req, res) => {
+    try {
+      const websites = await websiteService.getAll();
+      res.status(200).send({ websites });
+    } catch (error) {
+      res.status(404).send({ message: error.message });
+    }
+  },
+  getById: async (req, res) => {
+    try {
+      const websiteId = req.params.id;
+      const website = await websiteService.getById(websiteId);
+      res.status(200).send({ website });
+    } catch (error) {
+      if (error.message === 'Website not found') {
+        res.status(404).send({ message: error.message });
+      } else {
+        res.status(500).send({ message: error.message });
+      }
+    }
+  },
   createWebsite: async (req, res) => {
     /*
       #swagger.tags=['website']
