@@ -1,6 +1,6 @@
 const express = require('express');
-const { createWebsite, getAll, getById } = require('../controller/websiteController');
-const auth = require('../middleware/auth');
+const { createWebsite, getAll, getById } = require('../controllers/websiteController');
+const auth = require('../middlewares/auth');
 
 const router = express.Router();
 router.post('/website', auth, createWebsite);

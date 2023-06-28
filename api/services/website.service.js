@@ -4,6 +4,25 @@ const logger = require('../../logger');
 const validator = require('../validate');
 
 module.exports = {
+  getAll: async () => {
+    try {
+      const websites = await Website.find();
+      return websites;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
+  getById: async (websiteId) => {
+    try {
+      const website = await Website.findById(websiteId);
+      if (website) {
+        return website;
+      }
+      throw new Error('Website not found');
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  },
   create: async (website) => {
     try {
       const validationRule = {

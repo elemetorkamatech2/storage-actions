@@ -23,9 +23,9 @@ Validator.register(
 
 const domainType = /^((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+[A-Za-z]{2,6}$/;
 Validator.register(
-  'domain-type',
+  'domainType',
   (value) => domainType.test(value),
-  'the type of domain not Right',
+  'The domain type is not Right',
 );
 
 function isDomainAvailable(domain) {
@@ -49,7 +49,7 @@ const allowedCpuTypes = [686, 586, 486, 386];
 Validator.register(
   'wedCpuTypes',
   (value) => allowedCpuTypes.includes(value),
-  'the cpu mast to be 1 from the array ',
+  `the cpu mast to be 1 from the ${allowedCpuTypes} array`,
 );
 
 module.exports = validator;

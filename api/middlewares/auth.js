@@ -1,11 +1,16 @@
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+const logger = require('../../logger');
 
+dotenv.config();
 module.exports = (req, res, next) => {
   try {
+    const userIdBody = req.body.userId;
     const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, process.env.RANDOM_TOKEN_SECRET);
+    const decodedToken = jwt.verify(token, process.env.PUBLIC_KEY);
     const { userId } = decodedToken;
-    if (req.body.userId && req.body.userId !== userId) {
+    logger.info(userId);
+    if (userIdBody && userIdBody !== userId) {
       throw new Error('Invalid user ID');
     } else {
       next();
@@ -20,7 +25,6 @@ module.exports = (req, res, next) => {
     }
   }
 };
-const logger = require('../../logger');
 
 const payload = { userId: 'user123' };
 const secretKey = 'a2b1c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2';
