@@ -4,7 +4,6 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import { readFileSync } from 'fs';
-
 import logger from './logger.js';
 import websiteRouter from './api/routes/websiteRouter.js';
 
