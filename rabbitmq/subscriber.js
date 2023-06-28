@@ -1,27 +1,20 @@
 import { connect } from 'amqplib/callback_api.js';
-import create from '../api/services/website.service.js';
 import logger from '../logger.js';
 
-export default async function getFromQueue(queue) {
-  connect('amqp://localhost', async (error0, connection) => {
-    if (error0) {
-      throw error0;
+export default async function subscribe(queue, callback) {
+  connect(process.env.RABBIT_MQ, async (connectError, connection) => {
+    if (connectError) {
+      throw connectError;
     }
-    connection.createChannel(async (error1, channel) => {
-      if (error1) {
-        throw error1;
+    connection.createChannel(async (createChannelError, channel) => {
+      if (createChannelError) {
+        throw createChannelError;
       }
       channel.assertQueue(queue, { durable: false });
       channel.consume(queue, async (message) => {
         const jsonMessage = JSON.parse(message.content.toString());
         logger.info(`jsonMessage: ${jsonMessage}`);
-        switch (queue) {
-        case 'create':
-          create(jsonMessage);
-          break;
-        default:
-          logger.info(`Function ${queue} not found.`);
-        }
+        callback(jsonMessage);
       });
     });
   });
