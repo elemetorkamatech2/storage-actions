@@ -2,14 +2,13 @@ import { connect } from 'amqplib/callback_api.js';
 import logger from '../logger.js';
 
 export default async function subscribe(queue, callback) {
-  logger.info(`callback: ${callback}`);
-  connect('amqp://localhost', async (error0, connection) => {
-    if (error0) {
-      throw error0;
+  connect(process.env.RABBIT_MQ, async (connectError, connection) => {
+    if (connectError) {
+      throw connectError;
     }
-    connection.createChannel(async (error1, channel) => {
-      if (error1) {
-        throw error1;
+    connection.createChannel(async (createChannelError, channel) => {
+      if (createChannelError) {
+        throw createChannelError;
       }
       channel.assertQueue(queue, { durable: false });
       channel.consume(queue, async (message) => {
