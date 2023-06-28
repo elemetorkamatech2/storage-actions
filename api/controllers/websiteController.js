@@ -1,4 +1,4 @@
-import websiteService from '../services/website.service.js';
+import websiteService from '../services/websiteService.js';
 import { encryptData, decryptData } from '../encryption.js';
 
 async function create(encryptedWebsite) {

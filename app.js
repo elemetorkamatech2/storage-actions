@@ -4,8 +4,9 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import { readFileSync } from 'fs';
-import sendToQueue from './rabbitmq/publisher.js';
-import getFromQueue from './rabbitmq/subscriber.js';
+import websiteService from './api/services/websiteService.js';
+import publish from './rabbitmq/publisher.js';
+import subscribe from './rabbitmq/subscriber.js';
 import logger from './logger.js';
 import websiteRouter from './api/routes/websiteRouter.js';
 
@@ -19,11 +20,11 @@ const connectionParams = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
-sendToQueue('newQueue', {
+publish('newQueue1', {
   msg: 'new meesege',
 });
 
-getFromQueue('newQueue');
+subscribe('newQueue1', websiteService.create());
 
 mongoose.connect(process.env.DB_CONNECTION, connectionParams)
   .then(() => {

@@ -1,7 +1,7 @@
 import amqp from 'amqplib';
 import logger from '../logger.js';
 
-export default async function sendToQueue(queueName, message) {
+export default async function publish(queueName, message) {
   const connection = await amqp.connect('amqp://localhost');
   const channel = await connection.createChannel();
   await channel.assertQueue(queueName, { durable: false });
