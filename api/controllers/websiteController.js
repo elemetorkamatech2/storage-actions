@@ -26,8 +26,6 @@ export default {
       const result = await create(encryptedData);
       if (result.success) {
         res.status(200).send({ message: result.message });
-      } else {
-        res.status(412).send({ success: false, message: result.message });
       }
     } catch (error) {
       res.status(400).send({ message: error.message });

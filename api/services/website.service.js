@@ -22,7 +22,7 @@ export default {
           if (!status) {
             logger.error(err);
             // eslint-disable-next-line prefer-promise-reject-errors
-            reject({ success: false, message: 'An error occurred on the server' });
+            reject({ success: false, message: 'the validate is not proper' });
           } else {
             const message = new Website(website);
             message.save();
