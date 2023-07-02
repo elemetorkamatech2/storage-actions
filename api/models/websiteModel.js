@@ -37,6 +37,10 @@ const websiteSchema = new mongoose.Schema({
     type: String,
     required: true,
   }],
+  ImportantMessages: [{
+    type: String,
+  }],
+
 });
 const Website = mongoose.model('websiteModel', websiteSchema);
 export default Website;
