@@ -1,13 +1,36 @@
 import websiteService from '../services/website.service.js';
 import { encryptData, decryptData } from '../encryption.js';
+import Website from '../models/websiteModel.js';
 
 async function create(encryptedWebsite) {
   const website = JSON.parse(decryptData(encryptedWebsite));
-  const result = await websiteService.create(website);
-  return { success: true, message: result.message };
+  const message = new Website(website);
+  message.save();
+  return { success: true, message };
 }
 
 export default {
+  getAll: async (req, res) => {
+    try {
+      const websites = await websiteService.getAll();
+      res.status(200).send({ websites });
+    } catch (error) {
+      res.status(404).send({ message: error.message });
+    }
+  },
+  getById: async (req, res) => {
+    try {
+      const websiteId = req.params.id;
+      const website = await websiteService.getById(websiteId);
+      res.status(200).send({ website });
+    } catch (error) {
+      if (error.message === 'Website not found') {
+        res.status(404).send({ message: error.message });
+      } else {
+        res.status(500).send({ message: error.message });
+      }
+    }
+  },
   createWebsite: async (req, res) => {
     /*
       #swagger.tags=['website']
@@ -20,6 +43,7 @@ export default {
     try {
       // Encrypt the website data
       const website = req.body;
+
       const encryptedData = encryptData(JSON.stringify(website));
 
       // Call the websiteService to create the website with the encrypted data
