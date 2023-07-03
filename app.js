@@ -6,6 +6,9 @@ import swaggerUi from 'swagger-ui-express';
 import { readFileSync } from 'fs';
 import logger from './logger.js';
 import websiteRouter from './api/routes/websiteRouter.js';
+import BackupRouter from './api/routes/backupRouter.js';
+import subscribe from './rabbitmq/subscriber.js';
+import Backupservice from './api/services/Backup.service.js';
 
 const swaggerFile = JSON.parse(readFileSync('./swagger_output.json'));
 
@@ -30,7 +33,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(websiteRouter);
-
+app.use(BackupRouter);
+// subscribe('BackupCreationQueue', Backupservice.createBackup);
 app.get('/', (req, res) => {
   res.status(200).send('HELLO ˜');
 });
