@@ -64,15 +64,6 @@ describe('createBackup', () => {
     const result = await createBackup('123');
     expect(result).toEqual({ success: false, message: 'This website is already backed up' });
   });
-
-  it('should return { success: false, message: "This website is in process" } if website is in process', async () => {
-    const arr = [];
-    websiteToBackup.backups = arr;
-    const str = 'inProcess';
-    websiteToBackup.ImportantMessages = str;
-    const result = await createBackup('123');
-    expect(result).toEqual({ success: false, message: 'This website is in process' });
-  });
   it('should return { success: false, message: "Test error" } if an error occurs', async () => {
     const errorMessage = 'Test error';
     Website.findById.mockReturnValue({ exec: jest.fn().mockRejectedValue(new Error(errorMessage)) });

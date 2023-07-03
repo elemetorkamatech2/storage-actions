@@ -30,6 +30,7 @@ export default {
         description: websiteToBackup.description,
       }).save();
       websiteToBackup.backups = backup;
+      websiteToBackup.ImportantMessages = ' ';
       await websiteToBackup.save();
       return { success: true };
     } catch (err) {
