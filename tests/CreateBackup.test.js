@@ -1,15 +1,12 @@
 /* eslint-disable max-len */
 /* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
-import createBackup from '../api/services/Backup.service.js';
-
+import createBackup from '../api/services/backup.service.js';
 import Website from '../api/models/websiteModel.js';
-
 import Backup from '../api/models/backupModel.js';
 
 jest.mock('../api/models/websiteModel');
 jest.mock('../api/models/backupModel');
-
 describe('createBackup', () => {
   const websiteToBackup = {
     id: '123',
@@ -30,7 +27,6 @@ describe('createBackup', () => {
     description: 'Test website',
     save: jest.fn(),
   };
-
   beforeEach(() => {
     Website.findById.mockReturnValue({ exec: jest.fn().mockResolvedValue(websiteToBackup) });
     Website.mockImplementation(() => websiteToBackup);

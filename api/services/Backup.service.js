@@ -1,12 +1,7 @@
 /* eslint-disable quotes */
-
 import mongoose from 'mongoose';
-// eslint-disable-next-line no-unused-vars
-import { ObjectId } from 'mongodb';
 import Backup from '../models/backupModel.js';
-
 import Website from '../models/websiteModel.js';
-
 import publish from '../../rabbitmq/publisher.js';
 
 export default {

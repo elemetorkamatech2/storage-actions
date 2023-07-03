@@ -4,8 +4,8 @@ export default {
   // eslint-disable-next-line consistent-return
   createBackup: async (req, res) => {
     try {
-      const params = req.params.id;
-      const result = await backupService.createBackupForQueue(params);
+      const Id = req.params.id;
+      const result = await backupService.createBackupForQueue(Id);
       if (result.success) res.status(200).send({ message: result.message });
       if (!result.success) res.status(500).send({ message: result.message });
     } catch (err) {
