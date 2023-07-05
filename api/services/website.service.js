@@ -46,10 +46,29 @@ export default {
             // eslint-disable-next-line prefer-promise-reject-errors
             reject({ success: false, message: 'the validate is not proper' });
           } else {
-            await publisher('create', { website });
+            // eslint-disable-next-line no-param-reassign
+            website.status = 'pending';
+            logger.info('website.status');
+            logger.info(website);
+            publisher('createwebsite1', { website });
+            resolve({ success: true, message: website });
           }
         });
       });
+    } catch (error) {
+      logger.info(error);
+      return { success: false, message: error.message };
+    }
+  },
+  // eslint-disable-next-line consistent-return
+  createweb: async (website) => {
+    try {
+      // eslint-disable-next-line dot-notation
+      const value = website['website'];
+      const message = await new Website(value);
+      await message.save();
+      // eslint-disable-next-line object-shorthand
+      return { uccess: true, message: message };
     } catch (error) {
       logger.info(error);
       return { success: false, message: error.message };

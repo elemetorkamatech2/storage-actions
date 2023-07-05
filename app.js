@@ -6,7 +6,8 @@ import swaggerUi from 'swagger-ui-express';
 import { readFileSync } from 'fs';
 import logger from './logger.js';
 import websiteRouter from './api/routes/websiteRouter.js';
-import subscibers from './rabbitmq/subscibers.js';
+import websiteService from './api/services/website.service.js';
+import subscribe from './rabbitmq/subscriber.js';
 
 const swaggerFile = JSON.parse(readFileSync('./swagger_output.json'));
 
@@ -31,7 +32,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(websiteRouter);
-app.use(subscibers);
+subscribe('createwebsite1', websiteService.createweb);
 app.get('/', (req, res) => {
   res.status(200).send('HELLO ˜');
 });
