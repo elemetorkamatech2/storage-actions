@@ -28,7 +28,6 @@ export default {
   },
   create: async (website) => {
     try {
-      logger.info('awsertyuio');
       const validationRule = {
         cpu: [
           'required',
@@ -37,7 +36,7 @@ export default {
         title: 'required|string|min:3|max:50|EnglishLetters',
         description: 'required|string|min:10|max:100|desEnglishLetters',
         typeOfDomain: 'domainType',
-        // domain: 'isDomainAvailable',
+        domain: 'isDomainAvailable',
       };
       return new Promise((resolve, reject) => {
         validator(website, validationRule, {}, async (err, status) => {
@@ -48,8 +47,6 @@ export default {
           } else {
             // eslint-disable-next-line no-param-reassign
             website.status = 'pending';
-            logger.info('website.status');
-            logger.info(website);
             publisher('createwebsite1', { website });
             resolve({ success: true, message: website });
           }
@@ -65,10 +62,11 @@ export default {
     try {
       // eslint-disable-next-line dot-notation
       const value = website['website'];
-      const message = await new Website(value);
-      await message.save();
+      value.status = 'not active';
+      const Web = await new Website(value);
+      await Web.save();
       // eslint-disable-next-line object-shorthand
-      return { uccess: true, message: message };
+      return { success: true, message: message };
     } catch (error) {
       logger.info(error);
       return { success: false, message: error.message };
