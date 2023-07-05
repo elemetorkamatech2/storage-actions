@@ -8,6 +8,7 @@ import logger from './logger.js';
 import websiteRouter from './api/routes/websiteRouter.js';
 import websiteService from './api/services/website.service.js';
 import subscribe from './rabbitmq/subscriber.js';
+import BackupRouter from './api/routes/backupRouter.js';
 
 const swaggerFile = JSON.parse(readFileSync('./swagger_output.json'));
 
@@ -32,7 +33,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(websiteRouter);
+
 subscribe('createwebsite1', websiteService.createweb);
+
+app.use(BackupRouter);
+// subscribe('BackupCreationQueue', Backupservice.createBackup);
 app.get('/', (req, res) => {
   res.status(200).send('HELLO ˜');
 });
