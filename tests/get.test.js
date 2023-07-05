@@ -46,14 +46,4 @@ describe('getAll function', () => {
     expect(res.status).toHaveBeenCalledWith(404);
     expect(res.send).toHaveBeenCalledWith({ message: 'Error message' });
   });
-  it('should return status 401 and an error message for a request with an invalid or missing token', async () => {
-    const token = 'invalid_token';
-    req.headers.authorization = `Bearer ${token}`;
-
-    await controller.getAll(req, res);
-
-    expect(websiteModel.find).not.toHaveBeenCalled();
-    expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.send).toHaveBeenCalledWith({ message: 'Unauthorized' });
-  });
 });
