@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { connect } from 'amqplib/callback_api.js';
 import logger from '../logger.js';
 
