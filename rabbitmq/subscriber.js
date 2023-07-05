@@ -16,7 +16,7 @@ export default async function subscribe(queue, callback) {
         const jsonMessage = JSON.parse(message.content.toString());
         logger.info(`jsonMessage: ${jsonMessage}`);
         // this is the line that removing the messege from the queue
-        channel.nack(message);
+        channel.ack(message);
         callback(jsonMessage);
       });
     });

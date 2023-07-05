@@ -2,6 +2,9 @@
 import Website from '../models/websiteModel.js';
 import logger from '../../logger.js';
 import validator from '../validate.js';
+import publisher from '../../rabbitmq/publisher.js';
+
+// eslint-disable-next-line no-unused-vars
 
 export default {
   getAll: async () => {
@@ -25,7 +28,6 @@ export default {
   },
   create: async (website) => {
     try {
-      logger.info('awsertyuio');
       const validationRule = {
         cpu: [
           'required',
@@ -34,22 +36,37 @@ export default {
         title: 'required|string|min:3|max:50|EnglishLetters',
         description: 'required|string|min:10|max:100|desEnglishLetters',
         typeOfDomain: 'domainType',
-        // domain: 'isDomainAvailable',
+        domain: 'isDomainAvailable',
       };
-
       return new Promise((resolve, reject) => {
-        validator(website, validationRule, {}, (err, status) => {
+        validator(website, validationRule, {}, async (err, status) => {
           if (!status) {
             logger.error(err);
             // eslint-disable-next-line prefer-promise-reject-errors
-            reject({ success: false, message: 'An error occurred on the server' });
+            reject({ success: false, message: 'the validate is not proper' });
           } else {
-            const message = new Website(website);
-            message.save();
-            resolve({ success: true, message });
+            // eslint-disable-next-line no-param-reassign
+            website.status = 'pending';
+            publisher('createwebsite1', { website });
+            resolve({ success: true, message: website });
           }
         });
       });
+    } catch (error) {
+      logger.info(error);
+      return { success: false, message: error.message };
+    }
+  },
+  // eslint-disable-next-line consistent-return
+  createweb: async (website) => {
+    try {
+      // eslint-disable-next-line dot-notation
+      const value = website['website'];
+      value.status = 'not active';
+      const Web = await new Website(value);
+      await Web.save();
+      // eslint-disable-next-line object-shorthand
+      return { success: true, message: message };
     } catch (error) {
       logger.info(error);
       return { success: false, message: error.message };

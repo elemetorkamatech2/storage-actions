@@ -1,11 +1,7 @@
 import websiteService from '../services/website.service.js';
 import { encryptData, decryptData } from '../encryption.js';
-
-async function create(encryptedWebsite) {
-  const website = JSON.parse(decryptData(encryptedWebsite));
-  const result = await websiteService.create(website);
-  return { success: true, message: result.message };
-}
+// eslint-disable-next-line no-unused-vars
+import logger from '../../logger.js';
 
 export default {
   getAll: async (req, res) => {
@@ -41,14 +37,13 @@ export default {
     try {
       // Encrypt the website data
       const website = req.body;
-      const encryptedData = encryptData(JSON.stringify(website));
 
+      const encryptedData = encryptData(JSON.stringify(website));
+      const websites = JSON.parse(decryptData(encryptedData));
       // Call the websiteService to create the website with the encrypted data
-      const result = await create(encryptedData);
+      const result = await websiteService.create(websites);
       if (result.success) {
         res.status(200).send({ message: result.message });
-      } else {
-        res.status(412).send({ success: false, message: result.message });
       }
     } catch (error) {
       res.status(400).send({ message: error.message });

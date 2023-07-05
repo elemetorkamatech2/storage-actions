@@ -1,15 +1,16 @@
-/* eslint-disable linebreak-style */
-// const mongoose = require('mongoose');
-// const { describe, it } = require('mocha');
-// const logger = require('../logger');
+/* eslint-disable no-undef */
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import logger from '../logger.js';
 
-// describe('MongoDB Connection', () => {
-//   it('should connect to MongoDB', () => mongoose.connect('mongodb://localhost:27017/storageAction')
-//     .then(() => {
-//       logger.info('MongoDB connection successful');
-//     })
-//     .catch((err) => {
-//       logger.error('MongoDB connection error:', err);
-//       throw err;
-//     }));
-// });
+dotenv.config();
+describe('MongoDB Connection', () => {
+  it('should connect to MongoDB', () => mongoose.connect(process.env.DB_CONNECTION)
+    .then(() => {
+      logger.info('MongoDB connection successful');
+    })
+    .catch((err) => {
+      logger.error('MongoDB connection error:', err);
+      throw err;
+    }));
+});
