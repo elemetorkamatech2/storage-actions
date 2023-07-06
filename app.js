@@ -9,6 +9,8 @@ import websiteRouter from './api/routes/websiteRouter.js';
 import websiteService from './api/services/website.service.js';
 import subscribe from './rabbitmq/subscriber.js';
 import BackupRouter from './api/routes/backupRouter.js';
+// eslint-disable-next-line no-unused-vars
+import subscribers from './rabbitmq/subscribers.js';
 
 const swaggerFile = JSON.parse(readFileSync('./swagger_output.json'));
 

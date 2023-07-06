@@ -2,9 +2,7 @@
 import Website from '../models/websiteModel.js';
 import logger from '../../logger.js';
 import validator from '../validate.js';
-import publisher from '../../rabbitmq/publisher.js';
-
-// eslint-disable-next-line no-unused-vars
+import publish from '../../rabbitmq/publisher.js';
 
 export default {
   getAll: async () => {
@@ -47,7 +45,7 @@ export default {
           } else {
             // eslint-disable-next-line no-param-reassign
             website.status = 'pending';
-            publisher('createwebsite1', { website });
+            publish('createwebsite1', { website });
             resolve({ success: true, message: website });
           }
         });
@@ -66,10 +64,38 @@ export default {
       const Web = await new Website(value);
       await Web.save();
       // eslint-disable-next-line object-shorthand
-      return { success: true, message: message };
+      return { success: true, message: website };
     } catch (error) {
       logger.info(error);
       return { success: false, message: error.message };
+    }
+  },
+  delete: async (websiteId) => {
+    try {
+      const website = await Website.findById(websiteId);
+      console.log(website.status);
+      if (!website) return { success: false, error: 'Website doesn\'t found' };
+      if (website.status === 'deleted') return { success: false, error: 'The site has been deleted yet' };
+      if (website.status === 'going_to_be_deleted') return { success: false, error: 'The site is in the process of deletion' };
+      website.status = 'going_to_be_deleted';
+      await website.save();
+      publish('deleteWebsite', { websiteId });
+      return { success: true, message: `the website with id: ${websiteId} is going to be deleted` };
+    } catch {
+      return { success: false, error: 'Couldn\'t delete the website' };
+    }
+  },
+  fullDelete: async (message) => {
+    try {
+      const website = await Website.findById(message.websiteId);
+      if (!website) return { success: false, error: 'Website doesn\'t found' };
+      if (website.status === 'deleted') return { success: false, error: 'The site is already deleted' };
+      website.status = 'deleted';
+      await website.save();
+      return { success: true, message: `the website with id: ${message.websiteId} has been successfully deleted` };
+    } catch (error) {
+      logger.error(error.message);
+      return { success: false, error: 'Couldn\'t delete the website' };
     }
   },
 };
