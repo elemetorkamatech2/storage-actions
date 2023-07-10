@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
-import dotenv from 'dotenv';
 import request from 'supertest';
+
+import dotenv from 'dotenv';
 import app from '../app.js';
 
 dotenv.config();

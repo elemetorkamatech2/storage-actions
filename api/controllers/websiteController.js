@@ -29,11 +29,13 @@ export default {
     /*
       #swagger.tags=['website']
     */
-    // #swagger.parameters['website'] = {
-    //   in: 'body',
-    //   required: true,
-    //   schema: { $ref: "#/definitions/addWebsite" }
-    // }
+    /*
+      #swagger.parameters['website'] = {
+        in: 'body',
+        required: true,
+        schema: { $ref: "#/definitions/addWebsite" }
+      }
+    */
     try {
       // Encrypt the website data
       const website = req.body;
@@ -47,6 +49,24 @@ export default {
       }
     } catch (error) {
       res.status(400).send({ message: error.message });
+    }
+  },
+  deleteWebsite: async (req, res) => {
+    /*
+      #swagger.tags=['website']
+    */
+    try {
+      const websiteId = req.params.id;
+      const result = await websiteService.delete(websiteId);
+      if (result.error) {
+        if (result.error === 'Couldn\'t delete the website') {
+          res.status(500).send({ message: result.error });
+        } else {
+          res.status(400).send({ message: result.error });
+        }
+      } else { res.status(200).send({ result }); }
+    } catch (error) {
+      res.status(500).send({ message: error.message });
     }
   },
 };
