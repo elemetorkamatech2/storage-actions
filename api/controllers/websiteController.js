@@ -57,7 +57,7 @@ export default {
     */
     try {
       const websiteId = req.params.id;
-      const result = await websiteService.delete(websiteId);
+      const result = await websiteService.startDeletion(websiteId);
       if (result.error) {
         if (result.error === 'Couldn\'t delete the website') {
           res.status(500).send({ message: result.error });
