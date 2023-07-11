@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-unresolved
-import backupService from '../services/backup.service.js';
+import backupService from '../services/Backup.service.js';
 
 export default {
   // eslint-disable-next-line consistent-return

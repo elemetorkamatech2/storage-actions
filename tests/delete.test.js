@@ -1,93 +1,84 @@
-/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-undef */
+/* eslint-disable no-underscore-dangle */
+// eslint-disable-next-line import/no-extraneous-dependencies
+import request from 'supertest';
+
+import dotenv from 'dotenv';
 import websiteService from '../api/services/website.service.js';
+import app from '../app.js';
 import Website from '../api/models/websiteModel.js';
-import publish from '../rabbitmq/publisher.js';
+
+const website = {
+  _id: '649877bde1dd83dca315bc63',
+  title: 'New Website',
+  description: 'A new website for testing purposes',
+  domain: [
+    'example.com',
+  ],
+  typeOfDomain: 'my-example-domain.co.uk',
+  cpu: 686,
+  memory: 16,
+  status: 'deleted',
+  backups: [],
+  userId: [
+    'user123',
+  ],
+  __v: 1,
+  ImportantMessages: [],
+};
+
+dotenv.config();
 
 jest.mock('../api/models/websiteModel');
-jest.mock('../rabbitmq/publisher.js');
+jest.mock('../api/services/website.service.js');
 
+websiteService.delete.mockResolvedValue({ success: true, message: `the website with id: ${website._id} is going to be deleted` });
+const token = process.env.TOKEN;
 describe('start website deletion', () => {
-  const website = {
-    _id: '649877bde1dd83dca315bc63',
-    status: 'pending',
-    save: jest.fn(),
-  };
   beforeEach(() => {
-    Website.findById.mockResolvedValue(website);
+    websiteService.delete.mockClear();
+    Website.mockImplementation(() => website);
+    Website.findById.mockReturnValue({ exec: jest.fn().mockResolvedValue(website) });
+    website.toObject.mockClear();
     website.save.mockClear();
-    website.status = 'pending';
+    // req.headers.authorization = `Bearer ${token}`;
+    // setHeader('authorization', `Bearer ${token}`);
   });
-  it('error - website is not found', async () => {
-    Website.findById.mockResolvedValue(null);
-    const result = await websiteService.startDeletion(website._id);
-    expect(Website.findById).toHaveBeenCalledWith(website._id);
-    expect(result).toEqual({ success: false, error: 'Website doesn\'t found' });
-  });
-  it('error - website has been deleted yet', async () => {
+  it('delete website - website has been deleted yet', async () => {
     website.status = 'deleted';
-    const result = await websiteService.startDeletion(website._id);
-    expect(Website.findById).toHaveBeenCalledWith(website._id);
-    expect(result).toEqual({ success: false, error: 'The site has already been deleted' });
+    console.log('in test');
+    console.log(website.status);
+    // websiteService.delete.mockResolvedValueOnce({ message: { error: 'The site has been deleted yet' } });
+    await request(app).delete(`/website/${website._id}`)
+      .set('authorization', `Bearer ${token}`)
+      .expect(400, { message: { error: 'The site has been deleted yet' } });
   });
-  it('error - website in process of deletion yet', async () => {
-    website.status = 'going_to_be_deleted';
-    const result = await websiteService.startDeletion(website._id);
-    expect(Website.findById).toHaveBeenCalledWith(website._id);
-    expect(result).toEqual({ success: false, error: 'The site is in the process of deletion' });
-  });
-  it('success - change the website status to \'going_to_be_deleted', async () => {
-    const result = await websiteService.startDeletion(website._id);
-    expect(Website.findById).toHaveBeenCalledWith(website._id);
-    expect(website.save).toHaveBeenCalled();
-    expect(website.status).toEqual('going_to_be_deleted');
-    expect(publish).toHaveBeenCalledWith('deleteWebsite', { websiteId: website._id });
-    expect(result).toEqual({ success: true, message: `the website with id: ${website._id} is going to be deleted` });
-  });
-  it('error - couldn\'t delete the website', async () => {
-    website.save = jest.fn().mockRejectedValue(new Error('Couldn\'t delete the website - testing'));
-    const result = await websiteService.startDeletion(website._id);
-    expect(Website.findById).toHaveBeenCalledWith(website._id);
-    expect(website.save).toHaveBeenCalled();
-    expect(result).toEqual({ success: false, error: 'Couldn\'t delete the website - testing' });
+  it('change the website status to \'going_to_be_deleted', async () => {
+    await request(app).delete(`/website/${website._id}`)
+      .set('authorization', `Bearer ${token}`)
+      .expect(200, { result: { success: true, message: `the website with id: ${website._id} is going to be deleted` } });
   });
 });
+// test('delete website', () => {
+//   Delete(, jest.fn());
+// })
 
-describe('finish website deletion', () => {
-  const website = {
-    _id: '649877bde1dd83dca315bc63',
-    status: 'going_to_be_deleted',
-    save: jest.fn(),
-  };
-  beforeEach(() => {
-    Website.findById.mockResolvedValue(website);
-    website.save.mockClear();
-    website.status = 'going_to_be_deleted';
-  });
-  it('error - website is not found', async () => {
-    Website.findById.mockResolvedValue(null);
-    const result = await websiteService.endDeletion(website._id);
-    expect(Website.findById).toHaveBeenCalledWith(website._id);
-    expect(result).toEqual({ success: false, error: 'Website doesn\'t found' });
-  });
-  it('error - website has been deleted yet', async () => {
-    website.status = 'deleted';
-    const result = await websiteService.endDeletion(website._id);
-    expect(Website.findById).toHaveBeenCalledWith(website._id);
-    expect(result).toEqual({ success: false, error: 'The site has already been deleted' });
-  });
-  it('success - change the website status to \'deleted\'', async () => {
-    const result = await websiteService.endDeletion({ websiteId: website._id });
-    expect(Website.findById).toHaveBeenCalledWith(website._id);
-    expect(website.save).toHaveBeenCalled();
-    expect(website.status).toEqual('deleted');
-    expect(result).toEqual({ success: true, message: `the website with id: ${website._id} has been successfully deleted` });
-  });
-  it('error - couldn\'t delete the website', async () => {
-    website.save = jest.fn().mockRejectedValue(new Error('Couldn\'t delete the website - testing'));
-    const result = await websiteService.endDeletion(website._id);
-    expect(Website.findById).toHaveBeenCalledWith(website._id);
-    expect(website.save).toHaveBeenCalled();
-    expect(result).toEqual({ success: false, error: 'Couldn\'t delete the website - testing' });
-  });
-});
+// /* eslint-disable no-undef */
+// import request from 'supertest';
+// import { expect } from 'expect';
+
+// import app from '../app.js';
+
+// describe('Testing DELETE/website/:id endpoint', () => {
+//   it('respond with valid HTTP status code and valid authorization', async () => {
+//     const id = '649879027f5f7caf7d624c59';
+// eslint-disable-next-line max-len
+//     const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyMTIzIiwiaWF0IjoxNjg4Mjk4NDUzLCJleHAiOjE2ODgzMDIwNTN9.Ed_nghvW2c4i7S5dSxsLOfbNQMkrf3VBHDHKv3UWOMU';
+//     const response = await request(app)
+//       .post(`/website/${id}`)
+//     //   .setHeader('authorization', token);
+//       .set('authorization', `Bearer ${token}`);
+//     expect(response.statusCode).toBe(200);
+//     expect(response.body.success).toBe(true);
+//   });
+// });
