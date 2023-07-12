@@ -3,28 +3,32 @@ import mongoose from 'mongoose';
 import Backup from '../models/backupModel.js';
 import Website from '../models/websiteModel.js';
 import publish from '../../rabbitmq/publisher.js';
+import logger from '../../logger.js';
 
 export default {
-  createBackup: async (id) => {
+  createBackup: async ({ id, description }) => {
     try {
+      logger.info('inside create backup');
       const websiteToBackup = await Website.findById(new mongoose.Types.ObjectId(id)).exec();
       if (!websiteToBackup) {
         return { success: false, message: 'Website not found' };
       }
-      if (websiteToBackup.backups.length > 0) {
+      if (websiteToBackup.backups.length === websiteToBackup.maxBackups) {
         return { success: false, message: 'This website is already backed up' };
       }
       const backupWebsiteData = {
         ...websiteToBackup.toObject(),
         status: 'backup',
         _id: undefined,
+        backups: [],
       };
-      await new Website(backupWebsiteData).save();
+      const backupWebsite = await new Website(backupWebsiteData).save();
       const backup = await new Backup({
         siteId: websiteToBackup.id,
-        description: websiteToBackup.description,
+        backupSiteId: backupWebsite.id,
+        description,
       }).save();
-      websiteToBackup.backups = backup;
+      websiteToBackup.backups.push(backup);
       websiteToBackup.ImportantMessages = ' ';
       await websiteToBackup.save();
       return { success: true };
@@ -32,15 +36,14 @@ export default {
       return { success: false, message: err.message };
     }
   },
-  createBackupForQueue: async (id) => {
+  createBackupForQueue: async (id, description) => {
     try {
       const websiteToBackup = await Website.findById(id).exec();
       if (!websiteToBackup) return { success: false, message: 'Website not found' };
-      if (websiteToBackup.backups.length > 0) return { success: false, message: 'This website is already backed up' };
+      if (websiteToBackup.backups.length === websiteToBackup.maxBackups) return { success: false, message: 'This website is already backed up' };
       websiteToBackup.ImportantMessages = 'inProcess';
       await websiteToBackup.save();
-      // eslint-disable-next-line object-curly-spacing, quote-props
-      publish('BackupCreationQueue', {"id": id });
+      publish('createBackup', { id, description });
       return { success: true, message: websiteToBackup };
     } catch (err) {
       return { success: false, message: err.message };
