@@ -1,4 +1,7 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const websiteSchema = new mongoose.Schema({
   title: {
@@ -33,13 +36,17 @@ const websiteSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Backup',
   }],
-  userId: [{
+  maxBackups: {
+    type: Number,
+    default: process.env.MAX_BACKUPS,
+  },
+  userId: {
     type: String,
     required: true,
-  }],
-  ImportantMessages: [{
+  },
+  ImportantMessages: {
     type: String,
-  }],
+  },
 
 });
 const Website = mongoose.model('websiteModel', websiteSchema);
