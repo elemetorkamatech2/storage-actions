@@ -3,16 +3,13 @@
 import websiteService from '../api/services/website.service.js';
 import Website from '../api/models/websiteModel.js';
 import publish from '../rabbitmq/publisher.js';
+import mock from './mock.js';
 
 jest.mock('../api/models/websiteModel');
 jest.mock('../rabbitmq/publisher.js');
 
 describe('start website deletion', () => {
-  const website = {
-    _id: '649877bde1dd83dca315bc63',
-    status: 'pending',
-    save: jest.fn(),
-  };
+  const website = mock.websiteForStartDeletion;
   beforeEach(() => {
     Website.findById.mockResolvedValue(website);
     website.save.mockClear();
@@ -54,11 +51,7 @@ describe('start website deletion', () => {
 });
 
 describe('finish website deletion', () => {
-  const website = {
-    _id: '649877bde1dd83dca315bc63',
-    status: 'going_to_be_deleted',
-    save: jest.fn(),
-  };
+  const website = mock.websiteForEndDeletion;
   beforeEach(() => {
     Website.findById.mockResolvedValue(website);
     website.save.mockClear();
