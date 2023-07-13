@@ -13,4 +13,14 @@ export default {
       return res.status(500).send({ error: err.message });
     }
   },
+  getSitaBackups: async (req, res) => {
+    // eslint-disable-next-line no-empty
+    try {
+      const websiteId = req.params.id;
+      const website = await backupService.getSitaBackups(websiteId);
+      res.status(200).send({ website });
+    } catch (error) {
+      res.status(400).send({ message: error.message });
+    }
+  },
 };

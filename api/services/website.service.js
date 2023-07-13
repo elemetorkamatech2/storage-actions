@@ -28,6 +28,7 @@ export default {
   },
   create: async (website) => {
     try {
+      logger.info(website)
       const validationRule = {
         cpu: [
           'required',
@@ -36,7 +37,7 @@ export default {
         title: 'required|string|min:3|max:50|EnglishLetters',
         description: 'required|string|min:10|max:100|desEnglishLetters',
         typeOfDomain: 'domainType',
-        domain: 'isDomainAvailable',
+        //domain: 'isDomainAvailable',
       };
       return new Promise((resolve, reject) => {
         validator(website, validationRule, {}, async (err, status) => {
@@ -66,10 +67,11 @@ export default {
       const Web = await new Website(value);
       await Web.save();
       // eslint-disable-next-line object-shorthand
-      return { success: true, message: message };
+      return { success: true, message: Web };
     } catch (error) {
       logger.info(error);
       return { success: false, message: error.message };
     }
   },
+
 };

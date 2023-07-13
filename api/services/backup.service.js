@@ -46,4 +46,11 @@ export default {
       return { success: false, message: err.message };
     }
   },
+  getSitaBackups: async (id) => {
+    const websiteToBackup = await Website.backups.find({
+      _id: id,
+    });
+    return { success: true, message: websiteToBackup };
+  },
+
 };

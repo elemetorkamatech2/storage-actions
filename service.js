@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
 import app from './app.js';
 import logger from './logger.js';
+import cors from 'cors';
 
-dotenv.config();
 
 const port = process.env.PORT;
 

@@ -29,11 +29,13 @@ export default {
     /*
       #swagger.tags=['website']
     */
-    // #swagger.parameters['website'] = {
-    //   in: 'body',
-    //   required: true,
-    //   schema: { $ref: "#/definitions/addWebsite" }
-    // }
+    /*
+   #swagger.parameters['website'] = {
+      in: 'body',
+     required: true,
+       schema: { $ref: "#/definitions/addWebsite" }
+     }
+     */
     try {
       // Encrypt the website data
       const website = req.body;
