@@ -1,6 +1,6 @@
 import websiteService from '../services/website.service.js';
 import { encryptData, decryptData } from '../encryption.js';
-// eslint-disable-next-line no-unused-vars
+import { errorMessages } from '../../enums.js';
 
 export default {
   getAll: async (req, res) => {
@@ -17,7 +17,7 @@ export default {
       const website = await websiteService.getById(websiteId);
       res.status(200).send(website);
     } catch (error) {
-      if (error.message === 'Website not found') {
+      if (error.message === errorMessages.WEBSITE_NOT_FOUND) {
         res.status(404).send(error.message);
       } else {
         res.status(500).send(error.message);
@@ -38,7 +38,6 @@ export default {
     try {
       // Encrypt the website data
       const website = req.body;
-
       const encryptedData = encryptData(JSON.stringify(website));
       const websites = JSON.parse(decryptData(encryptedData));
       // Call the websiteService to create the website with the encrypted data
@@ -47,7 +46,7 @@ export default {
         res.status(200).send(result.message);
       }
     } catch (error) {
-      res.status(400).send(error.message);
+      res.status(400).send({ message: error.message });
     }
   },
   deleteWebsite: async (req, res) => {
@@ -58,7 +57,7 @@ export default {
       const websiteId = req.params.id;
       const result = await websiteService.startDeletion(websiteId);
       if (result.error) {
-        if (result.error === 'Couldn\'t delete the website') {
+        if (result.error === errorMessages.COULD_NOT_DELETE_THE_WEBSITE) {
           res.status(500).send(result.error);
         } else {
           res.status(400).send(result.error);

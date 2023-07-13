@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import { websiteStatuses, collectionNames } from '../../enums.js';
 
 const websiteSchema = new mongoose.Schema({
   title: {
@@ -29,12 +27,12 @@ const websiteSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'ready_to_use', 'start', 'stop', 'going_to_be_deleted', 'deleted', 'backup', 'not active'],
-    default: 'no_status',
+    enum: websiteStatuses,
+    default: websiteStatuses.NO_STATUS,
   },
   backups: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Backup',
+    ref: collectionNames.Backup,
   }],
   maxBackups: {
     type: Number,
@@ -49,5 +47,5 @@ const websiteSchema = new mongoose.Schema({
   },
 
 });
-const Website = mongoose.model('websiteModel', websiteSchema);
+const Website = mongoose.model(collectionNames.Website, websiteSchema);
 export default Website;
