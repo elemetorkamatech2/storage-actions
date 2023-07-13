@@ -11,10 +11,10 @@ export default {
       const Id = req.params.id;
       const { description } = req.body;
       const result = await backupService.createBackupForQueue(Id, description);
-      if (result.success) res.status(200).send({ message: result.message });
-      if (!result.success) res.status(500).send({ message: result.message });
+      if (result.success) res.status(200).send(result.message);
+      if (!result.success) res.status(500).send(result.message);
     } catch (err) {
-      return res.status(500).send({ error: err.message });
+      return res.status(500).send(err.message);
     }
   },
 };
