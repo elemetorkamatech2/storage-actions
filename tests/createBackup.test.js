@@ -4,6 +4,7 @@
 import backupService from '../api/services/backup.service.js';
 import Website from '../api/models/websiteModel.js';
 import Backup from '../api/models/backupModel.js';
+import { errorMessages } from '../enums.js';
 
 jest.mock('../api/models/websiteModel');
 jest.mock('../api/models/backupModel');
@@ -49,10 +50,10 @@ describe('createBackup', () => {
     expect(result).toEqual({ success: true, message: 'Backup created successfully' });
   });
 
-  it('should return { success: false, message: "Website not found" } if website is not found', async () => {
+  it(`should return ${errorMessages.WEBSITE_NOT_FOUND} if website is not found`, async () => {
     Website.findById.mockReturnValue({ exec: jest.fn().mockResolvedValue(null) });
     const result = await backupService.createBackup('649877bde1dd83dca315bc63');
-    expect(result).toEqual({ success: false, message: 'Website not found' });
+    expect(result).toEqual({ success: false, message: errorMessages.WEBSITE_NOT_FOUND });
   });
 
   it('should return { success: false, message: "This website is already backed up" } if website is already backed up', async () => {
