@@ -5,6 +5,9 @@ import logger from '../../logger.js';
 
 export default {
   getAll: async (req, res) => {
+    /*
+ #swagger.tags=['website']
+ */
     try {
       const websites = await websiteService.getAll();
       res.status(200).send({ websites });
@@ -13,6 +16,14 @@ export default {
     }
   },
   getById: async (req, res) => {
+    /*
+  #swagger.tags=['website']
+  #swagger.parameters['id'] = {
+      in: 'path',
+      required: true,
+      schema: { $ref: "#/definitions/getById" }
+  }
+  */
     try {
       const websiteId = req.params.id;
       const website = await websiteService.getById(websiteId);
