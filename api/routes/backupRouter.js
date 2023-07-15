@@ -5,5 +5,4 @@ import backupController from '../controllers/backupController.js';
 const router = express.Router();
 
 router.post('/backup/:id', backupController.createBackup);
-
 export default router;

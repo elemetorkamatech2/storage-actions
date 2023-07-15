@@ -29,7 +29,7 @@ const websiteSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'ready_to_use', 'start', 'stop', 'going_to_be_deleted', 'deleted', 'backup', 'not active'],
+    enum: ['pending', 'ready_to_use', 'start', 'stop', 'going_to_be_deleted', 'deleted', 'backup', 'not active','About to be restored'],
     default: 'no_status',
   },
   backups: [{

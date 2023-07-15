@@ -49,4 +49,41 @@ export default {
       return { success: false, message: err.message };
     }
   },
+  getSitaBackups: async (id) => {
+    const websiteToBackup = await Website.backups.find({
+      _id: id,
+    });
+    return { success: true, message: websiteToBackup };
+  },
+  restoredForQueue: async (becendId) => {
+    try {
+      const becend = await Website.findById(becendId);
+      if (!becend) return { success: false, error: 'Website doesn\'t found' };
+      if (becend.status === 'not active') return { success: false, error: 'The site has already been restored' };
+      if (becend.status === 'About to be restored') return { success: false, error: 'The site is in the process of restored' };
+      becend.status = 'About to be restored';
+      await becend.save();
+      publish('restoredBackup', { becendId });
+      return { success: true, message: `the website with id: ${becendId} is going to be restored` };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  },
+  restored: async (message) => {
+    try {
+      logger.error(message);
+      const website = await Website.findById(message.websiteId);
+      if (!website) return { success: false, error: 'Website doesn\'t found' };
+      if (website.status === 'not active') return { success: false, error: 'The site has already been restored' };
+      website.status = 'not active';
+      await website.save();
+      return { success: true, message: `the website with id: ${message.websiteId} has been successfully restored` };
+    } catch (error) {
+      logger.error(error.message);
+      return { success: false, error: error.message };
+    }
+  },
+
 };
+
+
