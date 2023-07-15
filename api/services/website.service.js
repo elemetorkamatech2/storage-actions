@@ -35,7 +35,9 @@ export default {
         title: 'required|string|min:3|max:50|EnglishLetters',
         description: 'required|string|min:10|max:100|desEnglishLetters',
         typeOfDomain: 'domainType',
+        memory:"required|min:10"
         //domain: 'isDomainAvailable',
+
       };
       return new Promise((resolve, reject) => {
         validator(website, validationRule, {}, async (err, status) => {
@@ -45,6 +47,8 @@ export default {
             reject({ success: false, message: 'the validate is not proper' });
           } else {
             // eslint-disable-next-line no-param-reassign
+            if (website.status === 'pending') return { success: false, error: 'The site has already been pending' };
+      if (website.status === 'not active') return { success: false, error: 'The site is in the process of produced' };
             website.status = 'pending';
             publish('createwebsite1', { website });
             resolve({ success: true, message: website });
