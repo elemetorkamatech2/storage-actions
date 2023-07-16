@@ -68,4 +68,21 @@ export default {
       res.status(500).send(error.message);
     }
   },
+  changeStatus: async (req, res) => {
+    try {
+      const result = websiteService.publishChangeStatus(req.params.id);
+      if (result.error) {
+        if (result.error === errorMessages.INTERNAL_SEVERAL_ERROR) {
+          res.status(401).send({ message: result.error });
+        } if (result.error === errorMessages.WEBSITE_NOT_FOUND) {
+          res.status(404).send({ message: result.error });
+        } else {
+          res.status(400).send({ message: result.error });
+        }
+      }
+      res.status(200).send({ result });
+    } catch (error) {
+      res.status(401).send({ message: error.message });
+    }
+  },
 };
