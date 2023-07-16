@@ -56,7 +56,8 @@ export default {
     */
     try {
       const websiteId = req.params.id;
-      const { userId } = req.headers;
+      // const userId = req.headers.userId;
+      const { userId } = req.body;
       const result = await websiteService.startDeletion(websiteId, userId);
       if (result.error) {
         if (result.error === errorMessages.COULD_NOT_DELETE_THE_WEBSITE) {

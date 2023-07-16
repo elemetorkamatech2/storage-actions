@@ -104,7 +104,6 @@
             "description": "Internal Server Error"
           }
         }
-
       },
       "delete": {
         "tags": [
@@ -122,6 +121,18 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -147,11 +158,11 @@
       "properties": {
         "title": {
           "type": "string",
-          "example": "undefined"
+          "example": "string"
         },
         "description": {
           "type": "string",
-          "example": "undefined"
+          "example": "string"
         },
         "domain": {
           "type": "string",
@@ -162,12 +173,10 @@
           "example": "string"
         },
         "cpu": {
-          "type": "string",
-          "example": "string"
+          "type": "function"
         },
         "memory": {
-          "type": "string",
-          "example": "string"
+          "type": "function"
         },
         "userId": {
           "type": "string",
