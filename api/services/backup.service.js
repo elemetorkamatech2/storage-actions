@@ -50,19 +50,14 @@ export default {
       return { success: false, message: err.message };
     }
   },
-  getSitaBackups: async (id) => {
-    const websiteToBackup = await Website.backups.find({
-      _id: id,
-    });
-    return { success: true, message: websiteToBackup };
-  },
-  restoredForQueue: async (becendId) => {
+  restoredForQueue: async (becendId, user) => {
     try {
       const becend = await Website.findById(becendId);
+      // eslint-disable-next-line eqeqeq
+      if (user != becend.userId) return { success: false, error: 'You do not have permissions' };
       if (!becend) return { success: false, error: 'becend doesn\'t found' };
       if (becend.status === 'not active') return { success: false, error: 'The site has already been restored' };
       if (becend.status === 'About to be restored') return { success: false, error: 'The site is in the process of restored' };
-      logger.info("ertyuiop")
       becend.status = 'About to be restored';
       await becend.save();
       publish('restoredBackup', { becendId });
@@ -87,5 +82,3 @@ export default {
   },
 
 };
-
-

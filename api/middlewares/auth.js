@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+// eslint-disable-next-line no-unused-vars
 import logger from '../../logger.js';
 
 dotenv.config();
@@ -6,8 +7,7 @@ dotenv.config();
 export default (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
-    logger.info(token);
-    if (token !== process.env.TNOKE) {
+    if (token !== process.env.token) {
       throw new Error('Invalid token');
     } else {
       next();

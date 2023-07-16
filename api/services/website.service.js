@@ -26,7 +26,7 @@ export default {
   },
   create: async (website) => {
     try {
-      logger.info(website)
+      logger.info(website);
       const validationRule = {
         cpu: [
           'required',
@@ -35,8 +35,8 @@ export default {
         title: 'required|string|min:3|max:50|EnglishLetters',
         description: 'required|string|min:10|max:100|desEnglishLetters',
         typeOfDomain: 'domainType',
-        memory:"required|min:10"
-        //domain: 'isDomainAvailable',
+        memory: 'required|min:10',
+        // domain: 'isDomainAvailable',
 
       };
       return new Promise((resolve, reject) => {
@@ -47,12 +47,14 @@ export default {
             reject({ success: false, message: 'the validate is not proper' });
           } else {
             // eslint-disable-next-line no-param-reassign
-            if (website.status === 'pending') return { success: false, error: 'The site has already been pending' };
-      if (website.status === 'not active') return { success: false, error: 'The site is in the process of produced' };
+            if (website.status === 'pending') reject({ success: false, error: 'The site has already been pending' });
+            if (website.status === 'not active') reject({ success: false, error: 'The site is in the process of produced' });
+            // eslint-disable-next-line no-param-reassign
             website.status = 'pending';
-
+            const Web = await new Website(website);
+            await Web.save();
             publish('createwebsite1', { website });
-            
+
             resolve({ success: true, message: website });
           }
         });
@@ -67,19 +69,15 @@ export default {
     try {
       // eslint-disable-next-line dot-notation
       const value = website['website'];
-      logger.info("edrtyui")
+      logger.info('edrtyui');
       value.status = 'not active';
-      const Web = await new Website(value);
-      await Web.save();
       // eslint-disable-next-line object-shorthand
-logger.info(Web)
       return { success: true, message: website };
     } catch (error) {
       logger.info(error);
       return { success: false, message: error.message };
     }
   },
-
 
   startDeletion: async (websiteId) => {
     try {

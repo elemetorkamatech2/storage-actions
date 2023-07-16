@@ -4,7 +4,7 @@ import auth from '../middlewares/auth.js';
 
 const router = express.Router();
 
-router.post('/website', controller.createWebsite);
+router.post('/website', auth, controller.createWebsite);
 router.get('/website', auth, controller.getAll);
 router.get('/website/:id', auth, controller.getById);
 router.delete('/website/:id', auth, controller.deleteWebsite);
