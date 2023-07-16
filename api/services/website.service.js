@@ -50,7 +50,9 @@ export default {
             if (website.status === 'pending') return { success: false, error: 'The site has already been pending' };
       if (website.status === 'not active') return { success: false, error: 'The site is in the process of produced' };
             website.status = 'pending';
+
             publish('createwebsite1', { website });
+            
             resolve({ success: true, message: website });
           }
         });
@@ -65,11 +67,12 @@ export default {
     try {
       // eslint-disable-next-line dot-notation
       const value = website['website'];
+      logger.info("edrtyui")
       value.status = 'not active';
       const Web = await new Website(value);
       await Web.save();
       // eslint-disable-next-line object-shorthand
-
+logger.info(Web)
       return { success: true, message: website };
     } catch (error) {
       logger.info(error);

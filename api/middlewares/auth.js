@@ -7,7 +7,7 @@ export default (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
     logger.info(token);
-    if (token !== process.env.TOKEN) {
+    if (token !== process.env.TNOKE) {
       throw new Error('Invalid token');
     } else {
       next();

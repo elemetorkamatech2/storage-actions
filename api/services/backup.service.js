@@ -28,6 +28,7 @@ export default {
         backupSiteId: backupWebsite.id,
         description,
       }).save();
+      logger.info(backupWebsite)
       websiteToBackup.backups.push(backup);
       websiteToBackup.ImportantMessages = ' ';
       await websiteToBackup.save();
@@ -58,9 +59,10 @@ export default {
   restoredForQueue: async (becendId) => {
     try {
       const becend = await Website.findById(becendId);
-      if (!becend) return { success: false, error: 'Website doesn\'t found' };
+      if (!becend) return { success: false, error: 'becend doesn\'t found' };
       if (becend.status === 'not active') return { success: false, error: 'The site has already been restored' };
       if (becend.status === 'About to be restored') return { success: false, error: 'The site is in the process of restored' };
+      logger.info("ertyuiop")
       becend.status = 'About to be restored';
       await becend.save();
       publish('restoredBackup', { becendId });

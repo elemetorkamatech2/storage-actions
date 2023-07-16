@@ -21,7 +21,6 @@ describe('post /', () => {
         cpu: 686,
         memory: 16,
         userId: 'user123',
-        status: 'pending',
         backups: [],
       });
     expect(response.status).toBe(200);
@@ -34,7 +33,6 @@ describe('post /', () => {
         cpu: 686,
         memory: 16,
         userId: 'user123',
-        status: 'pending',
         backups: [],
       }),
     });
@@ -56,7 +54,6 @@ describe('post /', () => {
         cpu: 686,
         memory: 16,
         userId: ['123456'],
-        status: 'pending',
         backups: [],
       });
 
@@ -82,7 +79,6 @@ describe('post /', () => {
         cpu: 111,
         memory: 16,
         userId: 'user123',
-        status: 'pending',
         backups: [],
       });
     expect(response.status).toBe(400);
