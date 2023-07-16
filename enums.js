@@ -16,6 +16,8 @@ export const errorMessages = {
   COULD_NOT_DELETE_THE_WEBSITE: 'Couldn\'t delete the website',
   THE_VALIDATE_IS_NOT_PROPER: 'The validate is not proper',
   WEBSITE_HAS_ALREADY_BEEN_DELETED: 'Website has already been deleted',
+  WEBSITE_IS_ALREADY_PENDING: 'Website status is already pending',
+  WEBSITE_IS_ALREADY_INACTIVE: 'Website status is already inactive',
   WEBSITE_IS_IN_PROCESS_OF_DELETION: 'Website is in process of deletion',
 };
 export const messages = {

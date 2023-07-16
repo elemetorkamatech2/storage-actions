@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable prefer-promise-reject-errors */
 import Website from '../models/websiteModel.js';
 import logger from '../../logger.js';
@@ -29,6 +30,7 @@ export default {
   },
   create: async (website) => {
     try {
+      logger.info(website);
       const validationRule = {
         cpu: [
           'required',
@@ -37,15 +39,20 @@ export default {
         title: 'required|string|min:3|max:50|EnglishLetters',
         description: 'required|string|min:10|max:100|desEnglishLetters',
         typeOfDomain: 'domainType',
+        memory: 'required|min:10',
         // domain: 'isDomainAvailable',
+
       };
       return new Promise((resolve, reject) => {
+        // eslint-disable-next-line consistent-return
         validator(website, validationRule, {}, async (err, status) => {
           if (!status) {
             logger.error(err);
             // eslint-disable-next-line prefer-promise-reject-errors
             reject({ success: false, message: errorMessages.THE_VALIDATE_IS_NOT_PROPER });
           } else {
+            if (website.status === websiteStatuses.PENDING) return { success: false, error: errorMessages.WEBSITE_IS_ALREADY_PENDING };
+            if (website.status === websiteStatuses.INACTIVE) return { success: false, error: errorMessages.WEBSITE_IS_ALREADY_INACTIVE };
             // eslint-disable-next-line no-param-reassign
             website.status = websiteStatuses.PENDING;
             publish(queuesNames.CREATE_WEBSITE, { website });

@@ -15,4 +15,13 @@ export default {
       res.status(500).send(err.message);
     }
   },
+  getSitaBackups: async (req, res) => {
+    try {
+      const websiteId = req.params.id;
+      const website = await backupService.getSitaBackups(websiteId);
+      res.status(200).send({ website });
+    } catch (error) {
+      res.status(400).send({ message: error.message });
+    }
+  },
 };
