@@ -13,6 +13,7 @@ export const websiteStatuses = {
 export const errorMessages = {
   INVALID_TOKEN: 'Invalid token',
   WEBSITE_NOT_FOUND: 'Website not found',
+  UNAUTHORIZED_USER_ID: 'Unauthorized user code',
   COULD_NOT_DELETE_THE_WEBSITE: 'Couldn\'t delete the website',
   THE_VALIDATE_IS_NOT_PROPER: 'The validate is not proper',
   WEBSITE_HAS_ALREADY_BEEN_DELETED: 'Website has already been deleted',

@@ -78,10 +78,13 @@ export default {
       return { success: false, message: error.message };
     }
   },
-  startDeletion: async (websiteId) => {
+  startDeletion: async (websiteId, userId) => {
     try {
       const website = await Website.findById(websiteId);
       if (!website) return { success: false, error: errorMessages.WEBSITE_NOT_FOUND };
+      if (website.userId !== userId) {
+        return { success: false, error: errorMessages.UNAUTHORIZED_USER_ID };
+      }
       if (website.status === websiteStatuses.DELETED) {
         return { success: false, error: errorMessages.WEBSITE_HAS_ALREADY_BEEN_DELETED };
       }

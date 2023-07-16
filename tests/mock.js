@@ -3,6 +3,7 @@ import { websiteStatuses } from '../enums.js';
 const websiteForStartDeletion = {
   _id: '649877bde1dd83dca315bc63',
   status: websiteStatuses.PENDING,
+  userId: 'user123',
   save: jest.fn(),
 };
 const websiteForEndDeletion = {
