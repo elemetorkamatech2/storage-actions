@@ -7,9 +7,20 @@ export default {
   getAll: async (req, res) => {
     /*
  #swagger.tags=['website']
+  #swagger.parameters['userId'] = {
+      in: 'header',
+      required: true,
+      schema: { $ref: "#/definitions/getAll" }
+  }
  */
     try {
-      const websites = await websiteService.getAll();
+      const userId = req.headers.IdUser.split(' ')[1];
+      logger.info(`userId: ${userId}`);
+      const websites = await websiteService.getAll(userId);
+      if (websites.error) {
+        if (websites.error === 'There are no active websites') { res.status(404).send({ message: websites.error }); }
+        res.status(500).send({ message: websites.error });
+      }
       res.status(200).send({ websites });
     } catch (error) {
       res.status(404).send({ message: error.message });
