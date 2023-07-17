@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable prefer-promise-reject-errors */
 import Website from '../models/websiteModel.js';
 import logger from '../../logger.js';
@@ -69,6 +70,25 @@ export default {
       return { success: true, message: message };
     } catch (error) {
       logger.info(error);
+      return { success: false, message: error.message };
+    }
+  },
+ 
+
+  put: async (websiteObj) => {
+    console.log('editWebsite');
+    try {
+      console.log(websiteObj);
+
+      const editWebsite = await Website.findByIdAndUpdate(
+        websiteObj._id,
+        websiteObj,
+        { new: true, upsert: true },
+      );
+      logger.info(editWebsite);
+      console.log(editWebsite);
+      return { success: true, message: editWebsite };
+    } catch (error) {
       return { success: false, message: error.message };
     }
   },
