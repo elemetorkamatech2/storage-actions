@@ -30,7 +30,7 @@ export default {
   },
   create: async (website) => {
     try {
-      logger.info(website);
+      logger.info(`website ${website}`);
       const validationRule = {
         cpu: [
           'required',
@@ -113,6 +113,50 @@ export default {
     } catch (error) {
       logger.error(error.message);
       return { success: false, error: error.message };
+    }
+  },
+  publishChangeStatus: async (websiteId) => {
+    try {
+      const website = await Website.findById(websiteId);
+      if (!website) return { error: errorMessages.WEBSITE_NOT_FOUND };
+      if (website.status === websiteStatuses.INACTIVE) {
+        website.status = websiteStatuses.ABOUT_TO_BE_ACTIVE;
+        await website.save();
+        publish(queuesNames.CHANGE_STATUS, websiteId);
+        logger.info(`seccuss change status to ${website.status}`);
+        return { success: true, message: `seccuss change status to ${website.status}` };
+      }
+      if (website.status === websiteStatuses.ACTIVE) {
+        website.status = websiteStatuses.ABOUT_TO_BE_INACTIVE;
+        await website.save();
+        publish(queuesNames.CHANGE_STATUS, websiteId);
+        logger.info(`seccuss change status to ${website.status}`);
+        return { success: true, message: `seccuss change status to ${website.status}` };
+      }
+      return { error: `This website is already ${website.status}` };
+    } catch (error) {
+      return { error: errorMessages.INTERNAL_SEVERAL_ERROR };
+    }
+  },
+  subscribeChangeStatus: async (websiteId) => {
+    try {
+      const website = await Website.findById(websiteId);
+      if (!website) return { error: errorMessages.WEBSITE_NOT_FOUND };
+      if (website.status === websiteStatuses.ABOUT_TO_BE_ACTIVE) {
+        website.status = websiteStatuses.ACTIVE;
+        await website.save();
+        logger.info(`seccuss change status to ${website.status}`);
+        return { success: true, message: `the status changed to ${website.status}` };
+      }
+      if (website.status === websiteStatuses.ABOUT_TO_BE_INACTIVE) {
+        website.status = websiteStatuses.INACTIVE;
+        await website.save();
+        logger.info(`seccuss change status to ${website.status}`);
+        return { success: true, message: `the status changed to ${website.status}` };
+      }
+      return { error: `This website status is ${website.status}` };
+    } catch (error) {
+      return { error: errorMessages.INTERNAL_SEVERAL_ERROR };
     }
   },
 };
