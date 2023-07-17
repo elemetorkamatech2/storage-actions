@@ -123,16 +123,9 @@
             "type": "string"
           },
           {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "userId": {
-                  "example": "any"
-                }
-              }
-            }
+            "name": "user_id",
+            "in": "header",
+            "type": "string"
           }
         ],
         "responses": {
@@ -166,17 +159,19 @@
         },
         "domain": {
           "type": "string",
-          "example": "string"
+          "example": "example.com"
         },
         "typeOfDomain": {
           "type": "string",
-          "example": "string"
+          "example": "my-example-domain.co.uk"
         },
         "cpu": {
-          "type": "function"
+          "type": "number",
+          "example": 686
         },
         "memory": {
-          "type": "function"
+          "type": "number",
+          "example": 16
         },
         "userId": {
           "type": "string",
