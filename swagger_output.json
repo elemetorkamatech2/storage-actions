@@ -104,7 +104,6 @@
             "description": "Internal Server Error"
           }
         }
-
       },
       "delete": {
         "tags": [
@@ -120,6 +119,11 @@
           },
           {
             "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "user_id",
             "in": "header",
             "type": "string"
           }
@@ -147,27 +151,27 @@
       "properties": {
         "title": {
           "type": "string",
-          "example": "undefined"
+          "example": "string"
         },
         "description": {
           "type": "string",
-          "example": "undefined"
+          "example": "string"
         },
         "domain": {
           "type": "string",
-          "example": "string"
+          "example": "example.com"
         },
         "typeOfDomain": {
           "type": "string",
-          "example": "string"
+          "example": "my-example-domain.co.uk"
         },
         "cpu": {
-          "type": "string",
-          "example": "string"
+          "type": "number",
+          "example": 686
         },
         "memory": {
-          "type": "string",
-          "example": "string"
+          "type": "number",
+          "example": 16
         },
         "userId": {
           "type": "string",
