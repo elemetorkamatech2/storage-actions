@@ -28,7 +28,7 @@ mongoose.connect(process.env.DB_CONNECTION, connectionParams)
   .catch((error) => {
     logger.error(error.message);
   });
-  app.use(cors());
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(bodyParser.json());

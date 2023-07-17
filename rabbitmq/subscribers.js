@@ -8,4 +8,5 @@ export default () => {
   subscribe(queuesNames.CREATE_BACKUP, backupService.createBackup);
   subscribe(queuesNames.CREATE_WEBSITE, websiteService.createWebsite);
   subscribe(queuesNames.CHANGE_STATUS, websiteService.subscribeChangeStatus);
+  subscribe(queuesNames.CREATE_BECEND, backupService.restoredForQueue);
 };

@@ -55,6 +55,8 @@ export default {
             if (website.status === websiteStatuses.INACTIVE) return { success: false, error: errorMessages.WEBSITE_IS_ALREADY_INACTIVE };
             // eslint-disable-next-line no-param-reassign
             website.status = websiteStatuses.PENDING;
+            const Web = await new Website(website);
+            await Web.save();
             publish(queuesNames.CREATE_WEBSITE, { website });
             resolve({ success: true, message: website });
           }
@@ -69,9 +71,9 @@ export default {
     try {
       // eslint-disable-next-line dot-notation
       const value = website['website'];
+
       value.status = websiteStatuses.INACTIVE;
-      const Web = await new Website(value);
-      await Web.save();
+      // eslint-disable-next-line object-shorthand
       return { success: true, message: website };
     } catch (error) {
       logger.info(error);
