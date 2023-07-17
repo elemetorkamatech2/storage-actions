@@ -20,7 +20,7 @@ const doc = {
       $typeOfDomain: 'string',
       $cpu: 'string',
       $memory: 'string',
-      $userId: ['string'],
+      $userId: 'string',
       $status: 'string',
       $backups: [],
     },
@@ -31,5 +31,4 @@ const options = {
   watch: false,
 };
 
-swaggerAutogen(outputFile, endpointsFiles, doc, options).then(() => {
-});
+swaggerAutogen(outputFile, endpointsFiles, doc, options);

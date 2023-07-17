@@ -1,12 +1,13 @@
+import { websiteStatuses } from '../enums.js';
 /* eslint-disable no-undef */
 const websiteForStartDeletion = {
   _id: '649877bde1dd83dca315bc63',
-  status: 'pending',
+  status: websiteStatuses.PENDING,
   save: jest.fn(),
 };
 const websiteForEndDeletion = {
   _id: '649877bde1dd83dca315bc63',
-  status: 'going_to_be_deleted',
+  status: websiteStatuses.ABOUT_TO_BE_DELETED,
   save: jest.fn(),
 };
 export default {

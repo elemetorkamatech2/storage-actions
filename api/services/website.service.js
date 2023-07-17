@@ -1,8 +1,12 @@
+/* eslint-disable max-len */
 /* eslint-disable prefer-promise-reject-errors */
 import Website from '../models/websiteModel.js';
 import logger from '../../logger.js';
 import validator from '../validate.js';
 import publish from '../../rabbitmq/publisher.js';
+import {
+  errorMessages, queuesNames, websiteStatuses, messages,
+} from '../../enums.js';
 
 export default {
   getAll: async () => {
@@ -19,7 +23,7 @@ export default {
       if (website) {
         return website;
       }
-      throw new Error('Website not found');
+      throw new Error(errorMessages.WEBSITE_NOT_FOUND);
     } catch (error) {
       throw new Error(error.message);
     }
@@ -40,21 +44,20 @@ export default {
 
       };
       return new Promise((resolve, reject) => {
+        // eslint-disable-next-line consistent-return
         validator(website, validationRule, {}, async (err, status) => {
           if (!status) {
             logger.error(err);
             // eslint-disable-next-line prefer-promise-reject-errors
-            reject({ success: false, message: 'the validate is not proper' });
+            reject({ success: false, message: errorMessages.THE_VALIDATE_IS_NOT_PROPER });
           } else {
+            if (website.status === websiteStatuses.PENDING) return { success: false, error: errorMessages.WEBSITE_IS_ALREADY_PENDING };
+            if (website.status === websiteStatuses.INACTIVE) return { success: false, error: errorMessages.WEBSITE_IS_ALREADY_INACTIVE };
             // eslint-disable-next-line no-param-reassign
-            if (website.status === 'pending') reject({ success: false, error: 'The site has already been pending' });
-            if (website.status === 'not active') reject({ success: false, error: 'The site is in the process of produced' });
-            // eslint-disable-next-line no-param-reassign
-            website.status = 'pending';
+            website.status = websiteStatuses.PENDING;
             const Web = await new Website(website);
             await Web.save();
-            publish('createwebsite1', { website });
-
+            publish(queuesNames.CREATE_WEBSITE, { website });
             resolve({ success: true, message: website });
           }
         });
@@ -64,13 +67,12 @@ export default {
       return { success: false, message: error.message };
     }
   },
-  // eslint-disable-next-line consistent-return
-  createweb: async (website) => {
+  createWebsite: async (website) => {
     try {
       // eslint-disable-next-line dot-notation
       const value = website['website'];
-      logger.info('edrtyui');
-      value.status = 'not active';
+
+      value.status = websiteStatuses.INACTIVE;
       // eslint-disable-next-line object-shorthand
       return { success: true, message: website };
     } catch (error) {
@@ -78,17 +80,20 @@ export default {
       return { success: false, message: error.message };
     }
   },
-
   startDeletion: async (websiteId) => {
     try {
       const website = await Website.findById(websiteId);
-      if (!website) return { success: false, error: 'Website doesn\'t found' };
-      if (website.status === 'deleted') return { success: false, error: 'The site has already been deleted' };
-      if (website.status === 'going_to_be_deleted') return { success: false, error: 'The site is in the process of deletion' };
-      website.status = 'going_to_be_deleted';
+      if (!website) return { success: false, error: errorMessages.WEBSITE_NOT_FOUND };
+      if (website.status === websiteStatuses.DELETED) {
+        return { success: false, error: errorMessages.WEBSITE_HAS_ALREADY_BEEN_DELETED };
+      }
+      if (website.status === websiteStatuses.ABOUT_TO_BE_DELETED) {
+        return { success: false, error: errorMessages.WEBSITE_IS_IN_PROCESS_OF_DELETION };
+      }
+      website.status = websiteStatuses.ABOUT_TO_BE_DELETED;
       await website.save();
-      publish('deleteWebsite', { websiteId });
-      return { success: true, message: `the website with id: ${websiteId} is going to be deleted` };
+      publish(queuesNames.DELETE_WEBSITE, { websiteId });
+      return { success: true, message: messages.THE_WEBSITE_IS_GOING_TO_BE_DELETED };
     } catch (error) {
       return { success: false, error: error.message };
     }
@@ -97,15 +102,14 @@ export default {
     try {
       logger.error(message);
       const website = await Website.findById(message.websiteId);
-      if (!website) return { success: false, error: 'Website doesn\'t found' };
-      if (website.status === 'deleted') return { success: false, error: 'The site has already been deleted' };
-      website.status = 'deleted';
+      if (!website) return { success: false, error: errorMessages.WEBSITE_NOT_FOUND };
+      if (website.status === 'deleted') return { success: false, error: errorMessages.WEBSITE_HAS_ALREADY_BEEN_DELETED };
+      website.status = websiteStatuses.DELETED;
       await website.save();
-      return { success: true, message: `the website with id: ${message.websiteId} has been successfully deleted` };
+      return { success: true, message: messages.THE_WEBSITE_HAS_BEEN_SUCCESSFULLY_DELETED };
     } catch (error) {
       logger.error(error.message);
       return { success: false, error: error.message };
     }
   },
-
 };

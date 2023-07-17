@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-named-as-default, import/no-named-as-default-member
 import backupService from '../services/backup.service.js';
 
 export default {
@@ -8,7 +9,6 @@ export default {
     try {
       const Id = req.params.id;
       const { description } = req.body;
-
       const result = await backupService.createBackupForQueue(Id, description);
       if (result.success) res.status(200).send(result.message);
       if (!result.success) res.status(500).send(result.message);
@@ -16,10 +16,10 @@ export default {
       res.status(500).send(err.message);
     }
   },
+
   restoredForQueue: async (req, res) => {
-    // eslint-disable-next-line no-empty
     try {
-      const {userid } = req.body;
+      const { userid } = req.body;
       const websiteId = req.params.id;
       const website = await backupService.restoredForQueue(websiteId, userid);
       res.status(200).send({ website });

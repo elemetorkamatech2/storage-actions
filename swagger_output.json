@@ -147,11 +147,11 @@
       "properties": {
         "title": {
           "type": "string",
-          "example": "string"
+          "example": "undefined"
         },
         "description": {
           "type": "string",
-          "example": "string"
+          "example": "undefined"
         },
         "domain": {
           "type": "string",
@@ -170,13 +170,8 @@
           "example": "string"
         },
         "userId": {
-          "type": "array",
-          "example": [
-            "string"
-          ],
-          "items": {
-            "type": "string"
-          }
+          "type": "string",
+          "example": "string"
         },
         "status": {
           "type": "string",
