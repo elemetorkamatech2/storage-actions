@@ -1,15 +1,15 @@
-/* eslint-disable prefer-promise-reject-errors */
 import Website from '../models/websiteModel.js';
 import logger from '../../logger.js';
 import validator from '../validate.js';
 import publisher from '../../rabbitmq/publisher.js';
 
-// eslint-disable-next-line no-unused-vars
-
 export default {
-  getAll: async () => {
+  getAll: async (Id) => {
     try {
-      const websites = await Website.find();
+      const websites = await Website.find({ userId: Id, status: { $nin: ['backup', 'deleted'] } }).limit(50);
+      if (!websites || websites.length === 0) {
+        return { error: `There are no active websites for user ${Id}` };
+      }
       return websites;
     } catch (error) {
       throw new Error(error.message);
@@ -17,7 +17,7 @@ export default {
   },
   getById: async (websiteId) => {
     try {
-      const website = await Website.findById(websiteId);
+      const website = await Website.find({ status: 'ready_to_use' }).findById(websiteId);
       if (website) {
         return website;
       }
@@ -57,7 +57,6 @@ export default {
       return { success: false, message: error.message };
     }
   },
-  // eslint-disable-next-line consistent-return
   createweb: async (website) => {
     try {
       // eslint-disable-next-line dot-notation
@@ -65,11 +64,12 @@ export default {
       value.status = 'not active';
       const Web = await new Website(value);
       await Web.save();
-      // eslint-disable-next-line object-shorthand
+      // eslint-disable-next-line object-shorthand, no-undef
       return { success: true, message: message };
     } catch (error) {
       logger.info(error);
       return { success: false, message: error.message };
     }
   },
+
 };
