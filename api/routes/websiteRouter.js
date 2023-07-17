@@ -7,4 +7,6 @@ const router = express.Router();
 router.post('/website', auth, controller.createWebsite);
 router.get('/website', auth, controller.getAll);
 router.get('/website/:id', auth, controller.getById);
+router.delete('/website/:id', auth, controller.deleteWebsite);
+router.put('/changeStatus/:id', auth, controller.changeStatus);
 export default router;
