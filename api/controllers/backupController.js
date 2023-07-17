@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-named-as-default, import/no-named-as-default-member
 import backupService from '../services/backup.service.js';
 
 export default {
@@ -15,13 +16,16 @@ export default {
       res.status(500).send(err.message);
     }
   },
-  getSitaBackups: async (req, res) => {
+
+  restoredForQueue: async (req, res) => {
     try {
+      const { userid } = req.body;
       const websiteId = req.params.id;
-      const website = await backupService.getSitaBackups(websiteId);
+      const website = await backupService.restoredForQueue(websiteId, userid);
       res.status(200).send({ website });
     } catch (error) {
       res.status(400).send({ message: error.message });
     }
   },
+
 };

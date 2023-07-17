@@ -29,6 +29,7 @@ export default {
         backupSiteId: backupWebsite.id,
         description,
       }).save();
+      logger.info(backupWebsite);
       websiteToBackup.backups.push(backup);
       websiteToBackup.ImportantMessages = ' ';
       await websiteToBackup.save();
@@ -49,6 +50,40 @@ export default {
       return { success: true, message: websiteToBackup };
     } catch (err) {
       return { success: false, message: err.message };
+    }
+  },
+
+  restoredForQueue: async (becendId, user) => {
+    try {
+      const becend = await Website.findById(becendId);
+      // eslint-disable-next-line eqeqeq
+      if (user != becend.userId) return { success: false, error: errorMessages.NOT_PERMISSIONS };
+      if (!becend) return { success: false, error: errorMessages.BECEND_NOT_FOUND };
+      // eslint-disable-next-line max-len
+      if (becend.status === websiteStatuses.INACTIVE) return { success: false, error: errorMessages.BECEND_IS_ALREADY_RESTORED };
+      // eslint-disable-next-line max-len
+      if (becend.status === websiteStatuses.ABOUT_TO_BE_RESTORED) return { success: false, error: errorMessages.BECEND_IS_IN_PROCESS_OF_restored };
+      becend.status = websiteStatuses.ABOUT_TO_BE_RESTORED;
+      await becend.save();
+      publish(queuesNames.CREATE_BECEND, { becendId });
+      return { success: true, message: `the website with id: ${becendId} is going to be restored` };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  },
+  restored: async (message) => {
+    try {
+      logger.error(message);
+      const becend = await Website.findById(message.becend);
+      if (!becend) return { success: false, error: errorMessages.BECEND_NOT_FOUND };
+      // eslint-disable-next-line max-len
+      if (becend.status === websiteStatuses.INACTIVE) return { success: false, error: errorMessages.BECEND_IS_ALREADY_RESTORED };
+      becend.status = websiteStatuses.INACTIVE;
+      await becend.save();
+      return { success: true, message: `the website with id: ${message.websiteId} has been successfully restored` };
+    } catch (error) {
+      logger.error(error.message);
+      return { success: false, error: error.message };
     }
   },
 };

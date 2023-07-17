@@ -11,6 +11,7 @@ export const websiteStatuses = {
   ABOUT_TO_BE_RESTORED: 'About to be restored',
 };
 export const errorMessages = {
+  NOT_PERMISSIONS: 'You do not have permissions',
   INVALID_TOKEN: 'Invalid token',
   WEBSITE_NOT_FOUND: 'Website not found',
   UNAUTHORIZED_USER_ID: 'Unauthorized user code',
@@ -20,6 +21,10 @@ export const errorMessages = {
   WEBSITE_IS_ALREADY_PENDING: 'Website status is already pending',
   WEBSITE_IS_ALREADY_INACTIVE: 'Website status is already inactive',
   WEBSITE_IS_IN_PROCESS_OF_DELETION: 'Website is in process of deletion',
+  INTERNAL_SEVERAL_ERROR: 'Internal several error',
+  BECEND_NOT_FOUND: 'becend doesn\'t found',
+  BECEND_IS_ALREADY_RESTORED: 'becend is already restored',
+  BECEND_IS_IN_PROCESS_OF_restored: 'becend is in process of restored',
 };
 export const messages = {
   THE_WEBSITE_IS_GOING_TO_BE_DELETED: 'The website is going to be deleted',
@@ -33,4 +38,6 @@ export const queuesNames = {
   DELETE_WEBSITE: 'deleteWebsite',
   CREATE_WEBSITE: 'createWebsite',
   CREATE_BACKUP: 'createBackup',
+  CHANGE_STATUS: 'changeStatus',
+  CREATE_BECEND: 'createbecend',
 };
