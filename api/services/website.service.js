@@ -9,9 +9,12 @@ import {
 } from '../../enums.js';
 
 export default {
-  getAll: async () => {
+  getAll: async (Id) => {
     try {
-      const websites = await Website.find();
+      const websites = await Website.find({ userId: Id, status: { $nin: [websiteStatuses.BACKUP, websiteStatuses.DELETED] } }).limit(50);
+      if (!websites || websites.length === 0) {
+        return { error: `There are no active websites for user ${Id}` };
+      }
       return websites;
     } catch (error) {
       throw new Error(error.message);

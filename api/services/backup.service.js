@@ -52,6 +52,18 @@ export default {
       return { success: false, message: err.message };
     }
   },
+  getSiteBackups: async (websiteId) => {
+    try {
+      const BackupWebsites = await Backup.find({ siteId: websiteId });
+      if (BackupWebsites) {
+        return { success: true, message: BackupWebsites };
+      }
+      throw new Error('There are no backups for this site');
+    } catch (error) {
+      logger.error('Failed to get site backups:', error);
+      throw new Error(error.message);
+    }
+  },
 
   restoredForQueue: async (becendId, user) => {
     try {

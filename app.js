@@ -1,4 +1,5 @@
 import express from 'express';
+// eslint-disable-next-line import/no-unresolved
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';

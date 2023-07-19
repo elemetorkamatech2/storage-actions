@@ -1,17 +1,40 @@
 import websiteService from '../services/website.service.js';
 import { encryptData, decryptData } from '../encryption.js';
 import { errorMessages } from '../../enums.js';
+import logger from '../../logger.js';
 
 export default {
   getAll: async (req, res) => {
+    /*
+ #swagger.tags=['website']
+  #swagger.parameters['userId'] = {
+      in: 'header',
+      required: true,
+      schema: { $ref: "#/definitions/getAll" }
+  }
+ */
     try {
-      const websites = await websiteService.getAll();
-      res.status(200).send(websites);
+      const userId = req.headers.IdUser.split(' ')[1];
+      logger.info(`userId: ${userId}`);
+      const websites = await websiteService.getAll(userId);
+      if (websites.error) {
+        if (websites.error === 'There are no active websites') { res.status(404).send({ message: websites.error }); }
+        res.status(500).send({ message: websites.error });
+      }
+      res.status(200).send({ websites });
     } catch (error) {
       res.status(404).send(error.message);
     }
   },
   getById: async (req, res) => {
+    /*
+  #swagger.tags=['website']
+  #swagger.parameters['id'] = {
+      in: 'path',
+      required: true,
+      schema: { $ref: "#/definitions/getById" }
+  }
+  */
     try {
       const websiteId = req.params.id;
       const website = await websiteService.getById(websiteId);
