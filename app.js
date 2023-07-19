@@ -35,6 +35,7 @@ app.use(bodyParser.json());
 app.use(websiteRouter);
 
 subscribe('createwebsite1', websiteService.createweb);
+subscribe('putwebsite', websiteService.putWeb);
 
 app.use(BackupRouter);
 // subscribe('BackupCreationQueue', Backupservice.createBackup);

@@ -27,7 +27,8 @@ export default {
   },
   put : async (req, res) => {
     try {
-      console.log("ghjkl");
+      // eslint-disable-next-line linebreak-style
+      console.log('ghjkl');
       const websiteObj = req.body;
       const websiteEdit = await websiteService.put(websiteObj);
       if (websiteEdit.success) {

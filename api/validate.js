@@ -15,6 +15,7 @@ Validator.register(
 );
 
 const description = /^[a-zA-Z\s]*$/;
+
 Validator.register(
   'desEnglishLetters',
   (value) => description.test(value),
@@ -36,6 +37,7 @@ function isDomainAvailable(domain) {
       } else {
         resolve(false);
       }
+    // eslint-disable-next-line linebreak-style
     });
   });
 }
