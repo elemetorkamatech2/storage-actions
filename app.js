@@ -9,6 +9,7 @@ import websiteRouter from './api/routes/websiteRouter.js';
 import websiteService from './api/services/website.service.js';
 import subscribe from './rabbitmq/subscriber.js';
 import BackupRouter from './api/routes/backupRouter.js';
+import backupService from './api/services/backup.service.js';
 
 const swaggerFile = JSON.parse(readFileSync('./swagger_output.json'));
 
@@ -35,6 +36,7 @@ app.use(bodyParser.json());
 app.use(websiteRouter);
 
 subscribe('createwebsite1', websiteService.createweb);
+subscribe('restoreSiteQueue', backupService.restoreSiteVersion);
 
 app.use(BackupRouter);
 // subscribe('BackupCreationQueue', Backupservice.createBackup);
