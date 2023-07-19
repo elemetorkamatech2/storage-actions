@@ -64,6 +64,7 @@ export default {
       throw new Error(error.message);
     }
   },
+
   restoredForQueue: async (becendId, user) => {
     try {
       const becend = await Website.findById(becendId);
