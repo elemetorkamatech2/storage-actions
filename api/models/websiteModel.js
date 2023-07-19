@@ -45,7 +45,9 @@ const websiteSchema = new mongoose.Schema({
   ImportantMessages: {
     type: String,
   },
-
+  date: {
+    type: Date,
+  },
 });
 const Website = mongoose.model(collectionNames.Website, websiteSchema);
 export default Website;
