@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { websiteStatuses, collectionNames } from '../../enums.js';
 
 const websiteSchema = new mongoose.Schema({
   title: {
@@ -26,21 +27,27 @@ const websiteSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'ready_to_use', 'start', 'stop', 'going_to_be_deleted', 'delete', 'backup', 'not active'],
-    default: 'no_status',
+    enum: websiteStatuses,
+    default: websiteStatuses.NO_STATUS,
   },
   backups: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Backup',
+    ref: collectionNames.Backup,
   }],
-  userId: [{
+  maxBackups: {
+    type: Number,
+    default: process.env.MAX_BACKUPS,
+  },
+  userId: {
     type: String,
     required: true,
-  }],
-  ImportantMessages: [{
+  },
+  ImportantMessages: {
     type: String,
-  }],
-
+  },
+  date: {
+    type: Date,
+  },
 });
-const Website = mongoose.model('websiteModel', websiteSchema);
+const Website = mongoose.model(collectionNames.Website, websiteSchema);
 export default Website;

@@ -16,11 +16,11 @@ const doc = {
     addWebsite: {
       $title: 'string',
       $description: 'string',
-      $domain: 'string',
-      $typeOfDomain: 'string',
-      $cpu: 'string',
-      $memory: 'string',
-      $userId: ['string'],
+      $domain: 'example.com',
+      $typeOfDomain: 'my-example-domain.co.uk',
+      $cpu: 686,
+      $memory: 16,
+      $userId: 'string',
       $status: 'string',
       $backups: [],
     },
@@ -31,5 +31,4 @@ const options = {
   watch: false,
 };
 
-swaggerAutogen(outputFile, endpointsFiles, doc, options).then(() => {
-});
+swaggerAutogen(outputFile, endpointsFiles, doc, options);
