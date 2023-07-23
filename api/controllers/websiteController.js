@@ -14,7 +14,7 @@ export default {
   }
  */
     try {
-      const userId = req.headers.IdUser.split(' ')[1];
+      const userId = req.headers.user_id;
       logger.info(`userId: ${userId}`);
       const websites = await websiteService.getAll(userId);
       if (websites.error) {
